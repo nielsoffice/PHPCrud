@@ -28,7 +28,7 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
             | - README.md
             | - composer.json        
 ```
-<h3>Dependencies Installation:</h3>
+<h3>Dependency Installation:</h3>
 
 ```PHP
 # Namespace / Dependencies
