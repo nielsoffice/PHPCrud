@@ -240,7 +240,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
   {
     
     # If condition gets [ TRUE ] set that custom query as the main query return only string type
-    if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED , $this->sql_query = $query ) ) { $this->wine_insert = implode("", isset($query[SELF::FILTER_MIXED]) ?? null );
+    if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED , $this->sql_query = $query ) ) { $this->wine_insert = implode("", $query[SELF::FILTER_MIXED] );
     
     # ELSE obviously return as string as well the prapared handy insert statements
     } else {
