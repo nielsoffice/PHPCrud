@@ -1,5 +1,5 @@
 # PHPCrud
-PHPCrud is CRUD System that design to extend PHPWine functionality crud features.
+PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 <br >
 <h3>Downloading PHPCrud Plugin:</h3>
  
