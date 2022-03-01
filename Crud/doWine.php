@@ -51,7 +51,7 @@ class doWine {
    **/
     protected function wine_request_call_back( mixed $server = null , string $query = null , mixed $callback = null ) : mixed {
  
-     if ( $server->query( $query  ) === TRUE) : return !is_null($callback) ? $callback(true) : false ;
+     if ( $server->multi_query( $query  ) === TRUE) : return !is_null($callback) ? $callback(true) : false ;
      else                                     : return "Error: " . $query . "<br>" . $server->error;
 
     endif;
