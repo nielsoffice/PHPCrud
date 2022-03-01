@@ -111,12 +111,12 @@ class doWine {
     protected function wine_crud_error_handler( mixed $debug ) : mixed
     {
  
-             echo "<pre>";
+             print "<pre>";
              /**
               * @param return current value 
               **/
              print_r( $debug );
-             echo "</pre>";
+             print "</pre>";
              die();
        
     }
