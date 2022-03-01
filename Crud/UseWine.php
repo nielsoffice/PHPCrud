@@ -368,15 +368,15 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
          if( $this->wine_check_arrays_key_mandatory( SELF::QUERY_CONDITION , $this->sql_query = $query )  ) : return $this->wine_update =  implode("", $query[SELF::QUERY_CONDITION] ) ; 
         else : 
           
-          echo "<pre>";
+          print "<pre>";
           /**
            * @param Required [ 'condition' ] if update in order to process database update
            * Implement [ condtion ] error handler !
            **/
           print_r( " Required [ 'condition' ] array key process database update : [ condition => [ ' WHERE id = ? ' ] ] <br />" );
-          echo "<hr />";
+          print "<hr />";
           print_r( " OR use : [ 'mixed' => [ ' YOUR_SQL_QUERY ' ] ] " );
-          echo "</pre>";
+          print "</pre>";
         die();   
 
       endif; 
@@ -468,15 +468,15 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
         if( $this->wine_check_arrays_key_mandatory( SELF::QUERY_CONDITION , $this->sql_query = $query )  ) : return $this->wine_delete =  implode("", $query[SELF::QUERY_CONDITION] ) ; 
        else : 
          
-         echo "<pre>";
+         print "<pre>";
          /**
           * @param Required [ 'condition' ] if update in order to process database update
           * Implement [ condtion ] error handler !
           **/
          print_r( " Required [ 'condition' ] array key process database delete : [ condition => [ ' WHERE id = ? ' ] ] <br />" );
-         echo "<hr />";
+         print "<hr />";
          print_r( " OR use : [ 'mixed' => [ ' YOUR_SQL_QUERY ' ] ] " );
-         echo "</pre>";
+         print "</pre>";
        die();   
 
      endif; 
@@ -532,19 +532,19 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
           # Set [ TRUE ] return debug to access custom query
           if( $debug == true ) :
 
-            echo "<pre>";
+            print "<pre>";
             /**
              * @param return current value 
              **/
             print_r( $wine_query );
-            echo "</pre>";
-            echo "<hr />";
-            echo "<pre>";
+            print "</pre>";
+            print "<hr />";
+            print "<pre>";
             /**
              * @param return current value and data type
              **/
             var_dump( $wine_query );
-            echo "</pre>";
+            print "</pre>";
             die();
           
           else :
