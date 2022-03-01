@@ -136,7 +136,7 @@ $wine_db->close();
 // Query incase of mixed 
 $query = [ 'mixed' => [" DELETE FROM `tb_name` WHERE `fltr_id` = 179; "] ] 
 
-$useWine->wine_delete( $wine_db , 'tb_name', $query , 'callBack' );
+$useWine->wine_delete( $wine_db , null, $query , 'callBack' );
 
 // Query debugging set $debug = true | last @param
 $useWine->wine_delete( $wine_db , 'tb_name', $query , 'callBack',  true );
