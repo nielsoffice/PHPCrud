@@ -90,7 +90,6 @@ $wine_db->close();
 
 if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
 
-
 function callBack( $updated ) { if( $updated ) { echo  " Updated record! "; } }
 
  // Update 
