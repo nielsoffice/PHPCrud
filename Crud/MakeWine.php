@@ -228,8 +228,7 @@ interface MakeWine {
      * $wineCrud = new Vanilla(Vanilla::DELETE, string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
      * 
      **/
-   
-     
+
     # $wineCrud = new Vanilla(string $flag = null, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false )  : mixed ;
   
 }

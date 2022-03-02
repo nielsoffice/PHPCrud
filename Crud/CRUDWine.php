@@ -70,10 +70,10 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = array())
+  protected function execute(array $query, string $data_type = "", array $data_values = array())     
   {   
       # CHECK IF HAS QUERY SET 
-      $stmt = $this->conn->prepare($query);
+      $stmt = $this->db_wine->prepare($query);
       
       # IF BIND AND VALUE DATA INSERTED IS NOT EMPTY THEN BIND IT DO INSERT 
       if (! empty($data_type ) && ! empty($data_values)) {

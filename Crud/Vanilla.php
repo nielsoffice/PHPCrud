@@ -220,7 +220,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
      * @since 02.28.2022
      **/
       case SELF::DELETE :
-        return $this->do_delete(  $this->requestConncetion(), $db_table, $query , $callback , $debug );
+        return $this->do_delete( $this->requestConncetion(), $db_table, $query , $callback , $debug );
         break;
 
      default:
