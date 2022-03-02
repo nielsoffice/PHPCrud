@@ -2,7 +2,7 @@
 
 namespace PHPWine\VanillaFlavour\Plugins\Crud;
 
-
+use \PHPWine\VanillaFlavour\Plugins\Crud\DBWine;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
@@ -42,7 +42,26 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
  *
  */
 
-class doWine {
+class CRUDWine extends  DBWine {
+
+
+  /**
+   * Defined: Database Object
+   * @since 1.0.0.0 supprt PHPWine v1.2.0.9
+   * @since 02.28.2022
+   **/   
+  public function requestConncetion() : object 
+  {
+   
+    // Establish Connection 
+    $conn = new \mysqli( SELF::DB_HOST, SELF::DB_USERNAME, SELF::DB_PASSWORD, SELF::DB_NAME );
+    // Verify connection status
+    if( $conn  === false ) { die("ERROR: Could not connect. " . $conn->connect_error); }
+    // Then return activated connection
+    $conn->set_charset("utf8");
+    return $conn;
+  
+  }
 
   /**
    * Defined: execute

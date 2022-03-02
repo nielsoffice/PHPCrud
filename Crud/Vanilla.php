@@ -2,7 +2,7 @@
 
 namespace PHPWine\VanillaFlavour\Plugins\Crud;
 
- use \PHPWine\VanillaFlavour\Plugins\Crud\doWine;
+ use \PHPWine\VanillaFlavour\Plugins\Crud\CRUDWine;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
@@ -47,23 +47,8 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
  *
  */
 
- Class Vanilla extends doWine implements MakeWine  {  
+ Class Vanilla extends CRUDWine implements MakeWine  {  
        
-/**
-  * Defined CONFIGURE database connection
-  * @since v1.0.0.1
-  * @since 03.02.2022
-  **/
-
-  # HOST OR SERVER NAME
-  const DB_HOST     = 'localhost';
-  # HOST USER NAME
-  const DB_USERNAME = '';
-  # HOST PASSWORD
-  const DB_PASSWORD = '';
-  # DATBASE NAME
-  const DB_NAME     = '';
-
  /**
   * @var 
   * @property Connection
@@ -258,26 +243,6 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
 
     $this->conn = $this->requestConncetion();
     
-  }
-
- /**
-  * @var 
-  * @property requestConncetion
-  * Defined Private Property Connection 
-  * @since v1.0.0.0
-  * @since 03.02.2022
-  **/
-  public function requestConncetion()
-  {
-      
-     // Establish Connection 
-     $conn = new \mysqli( SELF::DB_HOST, SELF::DB_USERNAME, SELF::DB_PASSWORD, SELF::DB_NAME );
-     // Verify connection status
-     if( $conn  === false ) { die("ERROR: Could not connect. " . $conn->connect_error); }
-     // Then return activated connection
-     $conn->set_charset("utf8");
-     return $conn;
-
   }
 
  /**
@@ -687,14 +652,14 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
            * @param return if the process would be a CRU [ CREATE ] [ UDPATE ] [ DELETE ]
           **/       
           case 'make_update_delete':
-           return (bool)(string)(doWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true);
+           return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true);
            break; 
 
           /**
            * @param return if the process would be a Delete [ FETCH ]
           **/  
           case 'fetch':
-           return (array)(doWine::wine_request_call_back_fetch( $MySQLi , $this->wine_fetch, $callback, $debug));
+           return (array)(CRUDWine::wine_request_call_back_fetch( $MySQLi , $this->wine_fetch, $callback, $debug));
            break;
           
           /**
