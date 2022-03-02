@@ -44,7 +44,6 @@ use \PHPWine\VanillaFlavour\Plugins\Crud\DBWine;
 
 class CRUDWine extends  DBWine {
 
-
   /**
    * Defined: Database Object
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
@@ -54,20 +53,17 @@ class CRUDWine extends  DBWine {
   {
    
     // Establish Connection 
-    $conn = new \mysqli( SELF::DB_HOST, SELF::DB_USERNAME, SELF::DB_PASSWORD, SELF::DB_NAME );
+    $db_wine = new \mysqli( SELF::DB_HOST, SELF::DB_USERNAME, SELF::DB_PASSWORD, SELF::DB_NAME );
     // Verify connection status
-    if( $conn  === false ) { die("ERROR: Could not connect. " . $conn->connect_error); }
+    if( $db_wine  === false ) { die("ERROR: Could not connect. " . $db_wine->connect_error); }
     // Then return activated connection
-    $conn->set_charset("utf8");
-    return $conn;
+    $db_wine->set_charset("utf8");
+    return $db_wine;
   
   }
 
   /**
    * Defined: execute
-   * @var|@property   : $crud
-   * @var|@property   : $MySQLi
-   * @var|@property   : $db_table
    * @var|@property   : $query
    * @var|@property   : $callback 
    * @var|@property   : $debug  

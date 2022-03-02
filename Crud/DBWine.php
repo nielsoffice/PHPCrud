@@ -36,7 +36,7 @@ Abstract Class DBWine {
   * @since v1.0.0.0
   * @since 03.02.2022
   **/
-  abstract public function requestConncetion() : object ;
+  abstract public function requestConncetion() : object;
 
  }
    

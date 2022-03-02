@@ -56,7 +56,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
   * @since v1.0.0.0
   * @since 03.02.2022
   **/
-  protected $conn;
+  protected $db_wine;
  
  /**
   * @var 
@@ -241,7 +241,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
 
     }
 
-    $this->conn = $this->requestConncetion();
+    $this->db_wine = $this->requestConncetion();
     
   }
 
@@ -300,7 +300,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
           exit();
         }
 
-        $stmt = $this->conn->prepare( $this->wine_insert );
+        $stmt = $this->db_wine->prepare( $this->wine_insert );
         $this->bind_data_type_params( $stmt, $dataType, $values );
 
         $stmt->execute();
@@ -308,6 +308,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
         return $request_data_id;
 
    }
+   
 
  /** Defined :Private execute for __construct() ;
    * @var|@property   : $server
@@ -606,10 +607,10 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 03.02.2022
    **/
-  public function wine_make(   ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false)  : bool|string { return  $this->do_make(   $this->conn, $db_table, $query , $callback , $debug ); }
-  public function wine_fetch(  ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false)  : array       { return  $this->do_fetch(  $this->conn, $db_table, $query , $callback , $debug ); }
-  public function wine_update( ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_update( $this->conn, $db_table, $query , $callback , $debug ); }
-  public function wine_delete( ?string $col_name = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_delete( $this->conn, $col_name, $query , $callback , $debug ); }
+  public function wine_make(   ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false)  : bool|string { return  $this->do_make(   $this->db_wine, $db_table, $query , $callback , $debug ); }
+  public function wine_fetch(  ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false)  : array       { return  $this->do_fetch(  $this->db_wine, $db_table, $query , $callback , $debug ); }
+  public function wine_update( ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_update( $this->db_wine, $db_table, $query , $callback , $debug ); }
+  public function wine_delete( ?string $col_name = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_delete( $this->db_wine, $col_name, $query , $callback , $debug ); }
 
   /**
    * @var|@property   : $server
