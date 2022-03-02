@@ -91,44 +91,6 @@ interface MakeWine {
     public function wine_creates(string $db_table  , array $query = [], string $dataType = null , array $values = null, bool $debug = false) : mixed;
 
     /**
-     * Defined: CRUD wine_insert | Create or insert data to database | single table insert data
-     * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
-     * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
-     * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
-     * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
-     * 
-     * # Create or Insert Data to Database
-     * 
-     * if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
-     * 
-     * echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
-     * 
-     * OR
-     * $c = new Vanilla( Vanilla::MAKE, 'tbl_info', [ 
-     * 
-     * 'name'         => 'Nikkie',
-     * 'description'  => 'The drummer'
-     *   
-     * ] ,'callBack' );
-     * 
-     * function callBack( $new_record ) {
-     * 
-     * if( $new_record ) { echo  " Added new record! "; } 
-     * 
-     * }
-     * 
-     * $wine_db->close();
-     * 
-     * Would you like me to treat a cake and coffee ?
-     * Become a donor, Because with you! We can build more...
-     * Donate:
-     * GCash : +639650332900
-     * Paypal account: syncdevprojects@gmail.com
-     * 
-     **/
-    public function wine_make( string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
-
-    /**
      * Defined: CRUD wine_read | Read data to database 
      * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
      * @param $query    : argument data type: ?array    [ query ]    -> SQL query 

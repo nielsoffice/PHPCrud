@@ -230,7 +230,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
      * @since 1.0.0.0 supprt PHPWine v1.2.0.9
      * @since 02.28.2022
      **/
-      $this->wine_crud_error_handler('Require a valid Argument [ Vanilla::MAKE ] | [ Vanilla::FETCH ] | [ Vanilla::PUT ] | [ Vanilla::DELETE ]'
+      $this->wine_crud_error_handler('Require a valid Argument #FLAG : [ Vanilla::MAKE ] | [ Vanilla::FETCH ] | [ Vanilla::PUT ] | [ Vanilla::DELETE ]'
       . '<br />' 
       . '<br/>$useWine  = NEW Vanilla( Vanill::MAKE , ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ); '
       );
@@ -600,14 +600,12 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
   }
 
   /**
-   * @method : wine_make run w/ __constructor (); // single data into database
    * @method : wine_fetch as method ();
    * @method : wine_update as method ();
    * @method : wine_delete as method ();
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 03.02.2022
    **/
-  public function wine_make(   ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false)  : bool|string { return  $this->do_make(   $this->db_wine, $db_table, $query , $callback , $debug ); }
   public function wine_fetch(  ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false)  : array       { return  $this->do_fetch(  $this->db_wine, $db_table, $query , $callback , $debug ); }
   public function wine_update( ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_update( $this->db_wine, $db_table, $query , $callback , $debug ); }
   public function wine_delete( ?string $col_name = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_delete( $this->db_wine, $col_name, $query , $callback , $debug ); }
