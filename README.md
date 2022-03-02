@@ -32,12 +32,12 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 
 ```PHP
 # Namespace / Dependencies
-use \PHPWine\VanillaFlavour\Plugins\Crud\UseWine;
+use \PHPWine\VanillaFlavour\Plugins\Crud\Vanilla;
 ```
 ```PHP
 # FLAG [ CRUD ] : (  Optional ) 
 // Create       // Read          // Update      // Delete 
-UseWine::MAKE | UseWine::FETCH | UseWine::PUT | UseWine::DELETE
+Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
 ```
 
 ```PHP
@@ -48,20 +48,35 @@ if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_
 function callBack( $inserted ) { if( $inserted ) { echo  " Added new record! "; } }
 
 // New instance
-$useWine = new UseWine();
-// Create 
-$useWine->wine_create(  $wine_db, 'table_name', [
+$wineVanilla = new Vanilla();
+// Create incase request last ID : 
+$wine = $wineVanilla->wine_creates( 'tb_name' , [ 
+     
+    'name'         => '?',
+    'description'  => '?'
 
-   'col_name' => 'Value_1'
-
-], 'callBack' );
+ ] , "ss" , array(
+        
+    $name,
+    $description 
+    
+));
+ 
+echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
 
 // OR
-$useWine = new UseWine(UseWine::MAKE, $wine_db, 'table_name', [
+ $c = new Vanilla( Vanilla::MAKE, 'tbl_info', [ 
+     
+      'name'         => 'Nikkie',
+      'description'  => 'The drummer'
+  
+   ] ,'callBack' );
 
-   'col_name' => 'Value_1' 
-    
-], 'callBack' );
+ function callBack( $new_record ) {
+
+  if( $new_record ) { echo  " Added new record! "; } 
+
+ }
 
 $wine_db->close();
 ```
@@ -71,17 +86,17 @@ $wine_db->close();
 if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
 
 // Execution
-function callBack( $read_datas ) { if( $read_datas ) { foreach( $read_datas as  $val ) { echo $val["filter"]; }  } }
+function callBack( $read_datas ) { if( $read_datas ) { foreach( $read_datas as  $val ) { echo $val["col_name"]; }  } }
 
 // Query
-$useWine->wine_fetch( $wine_db , 'tb_name', $query , 'callBack' );
+$wineVanilla->wine_fetch(  'tbl_info', [ 'name' ], 'callBack' );
 
 // OR
-$useWine  = NEW UseWine( UseWine::FETCH, $wine_db , 'tb_name',  [
+$wine  = NEW Vanilla( Vanilla::FETCH, 'tb_name',  [
      
-   'col_name',
+    'col_name',
      
-], 'callBack' );
+] , 'callBack' );
 
 $wine_db->close();
 ```
@@ -93,20 +108,20 @@ if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_
 function callBack( $updated ) { if( $updated ) { echo  " Updated record! "; } }
 
  // Update 
- $useWine->wine_update(  $wine_db, 'table_name', [
+ $wineVanilla->wine_update('tbl_info', [
+  
+     'name'      => 'Niel Fern',
+     'condition' => [" WHERE id  = 107 "] 
 
-    'col_name'  => 'Value_1',
-    'condition' => [" WHERE tabel_id  = 1 "] 
-
- ], 'callBack' );
+ ] , 'update' );
 
 // OR
-$useWine = new UseWine(UseWine::PUT, $wine_db , 'table_name', [
+$wine = new Vanilla( Vanilla::PUT, 'table_name', [
 
     'col_name'  => 'Value_1',
     'condition' => [" WHERE tabel_id  = 1 "] 
     
-],  'callBack' );
+] , 'callBack' );
 
 $wine_db->close();
 ```
@@ -118,13 +133,18 @@ function callBack( $deleted ) { if( $deleted ) { echo  " Deleted record! "; } }
 
 // table_name OR ( * ) if selected all data
 // empty table run with [ 'mixed' ]
-$useWine->wine_delete( $wine_db , 'tb_name', $query , 'callBack' );
+ $wineVanilla->wine_delete('', [
+  
+     'tbl_info',
+     'condition' => [" WHERE id  = 107 "] 
+
+ ] , 'deleted' );
 
 // OR
-$useWine = new UseWine(UseWine::DELETE, $wine_db , '', [
+$useWine = new Vanilla( Vanilla::DELETE, '', [
 
         'table_name',
-        'condition' => [" WHERE table_id  = 1 "] 
+        'condition' => [" WHERE id  = 1 "] 
     
 ] , 'callBack' );
 
@@ -135,23 +155,23 @@ $wine_db->close();
 // Query incase of mixed 
 $query = [ 'mixed' => [" DELETE FROM `tb_name` WHERE `fltr_id` = 179; "] ] 
 
-$useWine->wine_delete( $wine_db , null, $query , 'callBack' );
+$useWine->wine_delete( null, $query , 'callBack' );
 
 // Query debugging set $debug = true | last @param
-$useWine->wine_delete( $wine_db , 'tb_name', $query , 'callBack',  true );
+$useWine->wine_delete( 'tb_name', $query , 'callBack',  true );
 
 # Registered array keys 
 [ 'condition' ] && [ 'mixed' ]
 
 # PHPCrud Flag 
 // Create
-$wineCrud = new UseWine(UseWine::MAKE,   mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::MAKE,   string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
 // Read
-$wineCrud = new UseWine(UseWine::FETCH,  mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::FETCH,  string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
 // Update
-$wineCrud = new UseWine(UseWine::PUT,    mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::PUT,    string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
 // Delete
-$wineCrud = new UseWine(UseWine::DELETE, mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::DELETE, string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
 ```
 <hr /> 
 

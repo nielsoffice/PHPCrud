@@ -43,34 +43,42 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
 interface MakeWine {
 
     /**
-     * Defined: CRUD wine_insert | Create or insert data to database 
-     * @param $server   : argument data type: ?mixed    [ server ]   -> Database Connection
+     * Defined: CRUD wine_insert | Create or insert data to database | in case request dynamic JOIN last id table
      * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
      * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
      * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
      * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
      * 
-     * @param Insert_CallBack :
-     * function callBack( $msg ,  $test = 456 ) 
-     * {
-     *  if( $msg ) {
-     *     return $test.  " New record created successfully ";
-     *   }
-     * }
-     * $useWine->wine_create(  $wine_db , 'tb_name', $query , 'callBack' );
+     * # Create or Insert Data to Database
      * 
-     * @param Insert_Join_table :
-     * function message( $msg )
-     * {
-     *    if( $msg ) {
+     * if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
      * 
-     *      return  " New record created successfully " .  $useWine->wine_create(  $wine_db , 'tb_name',  [
+     * function callBack( $inserted ) { if( $inserted ) { echo  " Added new record! "; } }
+     * 
+     * New instance
+     * $wineVanilla = new Vanilla();
+     * Create incase request last ID : 
+     * $wine = $wineVanilla->wine_creates( 'tb_name' , [ 
+     * 
+     * 'name'         => '?',
+     * 'description'  => '?'
+     * 
+     * ] , "ss" , array(
      *  
-     *      'filter_name' => 'Vice2 City'
-     *   
-     *    ] );
-     *   }
-     * } 
+     * $name,
+     * $description 
+     * 
+     * ));
+     * 
+     * echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
+     * 
+     * function callBack( $new_record ) {
+     * 
+     * if( $new_record ) { echo  " Added new record! "; } 
+     * 
+     * }
+     * 
+     * $wine_db->close();
      *  
      * Would you like me to treat a cake and coffee ?
      * Become a donor, Because with you! We can build more...
@@ -80,52 +88,69 @@ interface MakeWine {
      * 
      **/
 
-     
-    public function wine_create( mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
+    public function wine_creates(string $db_table  , array $query = [], string $dataType = null , array $values = null, bool $debug = false) : mixed;
+
+    /**
+     * Defined: CRUD wine_insert | Create or insert data to database | single table insert data
+     * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
+     * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
+     * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
+     * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
+     * 
+     * # Create or Insert Data to Database
+     * 
+     * if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
+     * 
+     * echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
+     * 
+     * OR
+     * $c = new Vanilla( Vanilla::MAKE, 'tbl_info', [ 
+     * 
+     * 'name'         => 'Nikkie',
+     * 'description'  => 'The drummer'
+     *   
+     * ] ,'callBack' );
+     * 
+     * function callBack( $new_record ) {
+     * 
+     * if( $new_record ) { echo  " Added new record! "; } 
+     * 
+     * }
+     * 
+     * $wine_db->close();
+     * 
+     * Would you like me to treat a cake and coffee ?
+     * Become a donor, Because with you! We can build more...
+     * Donate:
+     * GCash : +639650332900
+     * Paypal account: syncdevprojects@gmail.com
+     * 
+     **/
+    public function wine_make( string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
 
     /**
      * Defined: CRUD wine_read | Read data to database 
-     * @param $server   : argument data type: ?mixed    [ server ]   -> Database Connection
      * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
      * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
      * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
      * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
      * 
-     * @param Read_CallBack :
-     * function callBack( $inserted ) 
-     * {
+     * # Read Data from Database
      *
-     *  if( $inserted ) 
-     *  {
-     *
-     *   foreach($inserted as  $val ) { echo $val["filter_name"]; } 
-     *
-     *  } 
-     *
-     * }
-     * $useWine->wine_fetch( $wine_db , 'tb_name', $query , 'callBack' );
-     * 
-     * @param Read_Join_table :
-     * @param Read_Custom_Query :
      * if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
      *
-     * function success( $inserted ) 
-     * {
+     * Execution
+     * function callBack( $read_datas ) { if( $read_datas ) { foreach( $read_datas as  $val ) { echo $val["col_name"]; }  } }
      *
-     *  if( $inserted ) 
-     *  {
+     * Query
+     * $wineVanilla->wine_fetch(  'tbl_info', [ 'name' ], 'callBack' );
      *
-     *   foreach($inserted as  $val ) { echo $val["filter_name"]; } 
+     * OR
+     * $wine  = NEW Vanilla( Vanilla::FETCH, $wine_db , 'tb_name',  [
      *
-     *  } 
+     * 'col_name',
      *
-     * }
-     *
-     * $useWine  = NEW UseWine( UseWine::FETCH, $wine_db , 'tb_name',  [
-     *
-     *  'col_name',
-     *
-     * ]  , 'success' );
+     * ] , 'callBack' );
      *
      * $wine_db->close();
      * 
@@ -136,88 +161,36 @@ interface MakeWine {
      * Paypal account: syncdevprojects@gmail.com
      * 
      **/
-    public function wine_fetch( mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : array ;
+    public function wine_fetch( string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : array ;
  
     /**
      * Defined: CRUD wine_update | Update data to database 
-     * @param $server   : argument data type: ?mixed    [ server ]   -> Database Connection
      * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
      * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
      * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
      * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
      * 
-     * @param Update_CallBack :
-     * function callBack( $msg ,  $test = 456 ) 
-     * {
-     *  if( $msg ) {
-     *     return $test.  " Updated successfully ";
-     *   }
-     * }
-     * $useWine->update( $wine_db , 'tb_name', $query , 'callBack' );
-     * 
-     * @param Update_Join_table :
-     * @param Update_Custom_Query :
-     * function message( $msg )
-     * {
-     *    if( $msg ) {
-     * 
-     *      return  " New record created successfully " .  $useWine->update(  $wine_db , 'tb_name',  [
-     *  
-     *       mixed => [ 'Custom SQL Query goes here' ] 
-     *   
-     *    ] );
-     *   }
-     * } 
-     * 
-     * Would you like me to treat a cake and coffee ?
-     * Become a donor, Because with you! We can build more...
-     * Donate:
-     * GCash : +639650332900
-     * Paypal account: syncdevprojects@gmail.com
-     * 
-     **/
-    public function wine_update( mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
-
-    /**
-     * Defined: CRUD wine_delete | Delete data to database 
-     * @param $server   : argument data type: ?mixed    [ server ]   -> Database Connection
-     * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
-     * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
-     * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
-     * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
-     * 
-     * @param Delete_CallBack :
-     * function callBack( $msg ,  $test = 456 ) 
-     * {
-     *  if( $msg ) {
-     *     return $test.  " Delete successfully ";
-     *   }
-     * }
-     * $useWine->wine_delete( $wine_db , 'tb_name', $query , 'callBack' );
-     * 
-     * @param Delete_Join_table :
-     * @param Delete_Custom_Query :
-     * if( $wine_db === false ) { die("ERROR: Could not connect. " . $con->connect_error); }
+     * # Update data from Database
      *
-     * function success( $inserted ) {
+     * if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
      *
-     * if( $inserted  ) {
+     * function callBack( $updated ) { if( $updated ) { echo  " Updated record! "; } }
      *
-     * echo "New data Deleted! ";
+     * Update 
+     * $wineVanilla->wine_update('tbl_info', [
      *
-     *  } 
+     * 'name'      => 'Niel Fern',
+     * 'condition' => [" WHERE id  = 107 "] 
      *
-     * } 
+     * ] , 'update' );
      *
-     * $useWine  = NEW UseWine( UseWine::DELETE, $wine_db , '',  [
+     * OR
+     * $wine = new Vanilla( Vanilla::PUT, $wine_db , 'table_name', [
      *
-     * # 'tb_name',
-     * # 'condition' => ['WHERE fltr_id = 177']
+     * 'col_name'  => 'Value_1',
+     * 'condition' => [" WHERE tabel_id  = 1 "] 
      *
-     * # If use   [ mixed ] 
-     * 'mixed' => [" DELETE FROM `tb_name` WHERE `fltr_id` = 179; "]
-     *
-     * ]  , 'success'  );
+     * ] , 'callBack' );
      *
      * $wine_db->close();
      * 
@@ -228,8 +201,75 @@ interface MakeWine {
      * Paypal account: syncdevprojects@gmail.com
      * 
      **/
-    public function wine_delete( mixed $MySQLi = null , string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
- 
+    public function wine_update( string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
+
+    /**
+     * Defined: CRUD wine_delete | Delete data to database 
+     * @param $db_table : argument data type: ?string   [ db_table ] -> Database table
+     * @param $query    : argument data type: ?array    [ query ]    -> SQL query 
+     * @param $callback : argument data type: ?mixed    [ callback ] -> Call back function 
+     * @param $debug    : argument data type: ?bool     [ debug ]    -> set to [ true ] debug SQL Query return as string 
+     * 
+     * # Delete data from Database
+     * if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
+     *
+     * function callBack( $deleted ) { if( $deleted ) { echo  " Deleted record! "; } }
+     *
+     * table_name OR ( * ) if selected all data
+     * empty table run with [ 'mixed' ]
+     * $wineVanilla->wine_delete('', [
+     *
+     * 'tbl_info',
+     * 'condition' => [" WHERE id  = 107 "] 
+     *
+     * ] , 'deleted' );
+     *
+     * OR
+     * $useWine = new Vanilla( Vanilla::DELETE , '', [
+     *
+     *  'table_name',
+     *  'condition' => [" WHERE id  = 1 "] 
+    
+     * ] , 'callBack' );
+     *
+     * $wine_db->close();
+     * 
+     * Would you like me to treat a cake and coffee ?
+     * Become a donor, Because with you! We can build more...
+     * Donate:
+     * GCash : +639650332900
+     * Paypal account: syncdevprojects@gmail.com
+     * 
+     **/
+    public function wine_delete( string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false ) : bool|string; 
+
+    /**
+     * Query incase of mixed 
+     * $query = [ 'mixed' => [" DELETE FROM `tb_name` WHERE `fltr_id` = 179; "] ] 
+     * 
+     * $useWine->wine_delete( null, $query , 'callBack' );
+     * 
+     * Query debugging set $debug = true | last @param
+     * $useWine->wine_delete( 'tb_name', $query , 'callBack',  true );
+     * 
+     * # Registered array keys 
+     * [ 'condition' ] && [ 'mixed' ]
+     * 
+     * # PHPCrud Flag 
+     * Incase Create
+     * $wineCrud = new Vanilla(Vanilla::MAKE,   string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+     * Incase Read
+     * $wineCrud = new Vanilla(Vanilla::FETCH,  string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+     * Incase Update
+     * $wineCrud = new Vanilla(Vanilla::PUT,    string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+     * Incase Delete
+     * $wineCrud = new Vanilla(Vanilla::DELETE, string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+     * 
+     **/
+   
+     
+    # $wineCrud = new Vanilla(string $flag = null, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false )  : mixed ;
+  
 }
 
 

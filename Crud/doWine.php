@@ -2,6 +2,8 @@
 
 namespace PHPWine\VanillaFlavour\Plugins\Crud;
 
+
+
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
  *
@@ -43,6 +45,49 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
 class doWine {
 
   /**
+   * Defined: execute
+   * @var|@property   : $crud
+   * @var|@property   : $MySQLi
+   * @var|@property   : $db_table
+   * @var|@property   : $query
+   * @var|@property   : $callback 
+   * @var|@property   : $debug  
+   * @since 1.0.0.0 supprt PHPWine v1.2.0.9
+   * @since 02.28.2022
+   **/   
+  protected function execute(array $query, string $data_type = "", array $data_values = array())
+  {   
+      # CHECK IF HAS QUERY SET 
+      $stmt = $this->conn->prepare($query);
+      
+      # IF BIND AND VALUE DATA INSERTED IS NOT EMPTY THEN BIND IT DO INSERT 
+      if (! empty($data_type ) && ! empty($data_values)) {
+          # RUN BIND PARAM
+          $this->bind_data_type_params($stmt, $data_type, $data_values);
+      }
+      # execute data // means run onsert to database
+      $stmt->execute();
+  }
+
+  /**
+   * Defined: execute
+   * @var|@property   : $stmt
+   * @var|@property   : $data_type
+   * @var|@property   : $data_values
+   * @since 1.0.0.0 supprt PHPWine v1.2.0.9
+   * @since 02.28.2022
+   **/ 
+  protected function bind_data_type_params($stmt, string $data_type, array $data_values = array())
+  {    
+      # Initialized emoty arrays of data
+      $request_data[] = & $data_type;
+      # loop through it
+      for ($i = 0; $i < count($data_values); $i ++) { $request_data[] = & $data_values[$i]; }
+      # set callable then return bind param associated with valid numbers of value !
+      call_user_func_array(array( $stmt, 'bind_param' ), $request_data);
+  }  
+
+  /**
    * @var|@property   : $server
    * @var|@property   : $query
    * @var|@property   : $callback
@@ -50,12 +95,14 @@ class doWine {
    * @since 02.28.2022
    **/
     protected function wine_request_call_back( mixed $server = null , string $query = null , mixed $callback = null ) : mixed {
- 
-     if ( $server->query( $query  ) === TRUE) : return !is_null($callback) ? $callback(true) : false ;
-     else                                     : return "Error: " . $query . "<br>" . $server->error;
+      
+     # do insert multi ple vaue from arrays odf data
+     if ( $server->multi_query( $query  ) === TRUE) : return !is_null($callback) ? $callback(true) : false ; // return call back if set
+     # else if error connection server return false disconnected !
+     else                                           : return "Error: " . $query . "<br>" . $server->error;
 
     endif;
-
+   
     # Prepare exit !
     return false;
     exit();
@@ -71,12 +118,19 @@ class doWine {
    **/
     protected function wine_request_call_back_fetch( mixed $server = null , string $query = null , mixed $callback = null ) : array {
       
+      # Initialized emoty arrays of data  
       $wine_array_of_data = array();
-
+      
+      # check if wine is connected to server 
       if ( $wine_result   = $server->query( $query )) :
         
+       # then loop data from databse as requested ionto call back function ! 
        if ( $wine_result->num_rows > 0 ) {  while($wine_data = $wine_result->fetch_assoc()) {  $wine_array_of_data[] = $wine_data; }
-       return (array) $callback($wine_array_of_data);
+            # check array sould not empty !
+            # then return data through call back function !
+           if( !empty($wine_array_of_data) ) { return (array) $callback($wine_array_of_data); }
+
+       # else return false !
        } else {  return $callback(false); }
 
      endif;
@@ -86,7 +140,7 @@ class doWine {
      exit();
  
      }
-  
+
   /**
    * @var|@property   : $key
    * @var|@property   : $request
@@ -94,7 +148,8 @@ class doWine {
    * @since 02.28.2022
    **/
     protected function wine_check_arrays_key_mandatory(string $key, array $request)  : bool {
-        
+     
+     # just check array key is exist ? !
      if( array_key_exists( $key, $request )) : return true; endif;
 
      # Prepare exit !
@@ -108,18 +163,16 @@ class doWine {
    * @since v1.2.0.9
    * @since 02.28.2022
    **/
-    protected function wine_crud_error_handler( mixed $debug ) : mixed
-    {
+  protected function wine_crud_error_handler( mixed $debug ) {
  
-             print "<pre>";
-             /**
-              * @param return current value 
-              **/
-             print_r( $debug );
-             print "</pre>";
-             die();
-       
-    }
+      print "<pre>";
+      /**
+      * @param return current value 
+      **/
+      print_r( $debug );
+      print "</pre>";
+
+  }
 
 }
 
