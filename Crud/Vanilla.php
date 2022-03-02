@@ -58,11 +58,11 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
   # HOST OR SERVER NAME
   const DB_HOST     = 'localhost';
   # HOST USER NAME
-  const DB_USERNAME = 'root';
+  const DB_USERNAME = '';
   # HOST PASSWORD
   const DB_PASSWORD = '';
   # DATBASE NAME
-  const DB_NAME     = 'importfile';
+  const DB_NAME     = '';
 
  /**
   * @var 
