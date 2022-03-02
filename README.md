@@ -62,7 +62,7 @@ function callBack( $inserted ) { if( $inserted ) { echo  " Added new record! "; 
 
 // New instance
 $wineVanilla = new Vanilla();
-// Create incase request last ID : 
+// Create incase insert join w/request last ID : 
 $wine = $wineVanilla->wine_creates( 'tb_name' , [ 
      
     'name'         => '?',
