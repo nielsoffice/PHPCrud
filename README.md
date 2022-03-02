@@ -39,6 +39,19 @@ use \PHPWine\VanillaFlavour\Plugins\Crud\Vanilla;
 // Create       // Read          // Update      // Delete 
 Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
 ```
+```PHP
+ // Database Configuration
+ $path > ../plugins/Crud/DBWine.php
+  
+ # HOST OR SERVER NAME
+ const DB_HOST     = 'localhost';
+ # HOST USER NAME
+ const DB_USERNAME = 'root';
+ # HOST PASSWORD
+ const DB_PASSWORD = '';
+ # DATBASE NAME
+ const DB_NAME     = '';
+```
 
 ```PHP
 # Create or Insert Data to Database
