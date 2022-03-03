@@ -63,7 +63,7 @@ Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
  // Create incase insert bulk & join w/request last ID : 
  $wine = $wineVanilla->wine_creates( 'tbl_name' , [ 
      
-    'col_name_1'  => '?', // !must be like : [ '?' ][ $debug : true ] " Insert into tbl_name (col1, col2) VALUES ( ?,? ) ";
+    'col_name_1'  => '?', // !must be like : [ '?' ][ $debug : true ] " INSERT INTO tbl_name (col1, col2) VALUES ( ?,? ) ";
     'col_name_2'  => '?'
 
  ] , "ss" , array(

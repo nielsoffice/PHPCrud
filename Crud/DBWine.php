@@ -27,7 +27,7 @@ Abstract Class DBWine {
    # HOST PASSWORD
    const DB_PASSWORD = '';
    # DATBASE NAME
-   const DB_NAME     = 'importfile';
+   const DB_NAME     = '';
      
  /**
   * @var 
