@@ -31,7 +31,6 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * @category   PHPCrud Vanilla
  * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features
  *            
- *            
  * @author    Leinner Zednanref <nielsoffice.wordpress.php@gmail.com>
  * @license   MIT License
  * @link      https://github.com/nielsofficeofficial/PHPWine
