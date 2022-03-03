@@ -4,9 +4,7 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 <h3>Downloading PHPCrud Plugin:</h3>
  
 ```PHP
-// Clone repository from githug | GitBus | CMD | CLi
-
-// Download latest version 
+// Download Plugin latest version 
  $ git clone https://github.com/nielsofficeofficial/PHPCrud
 
 // Download specified version ( --branch tag ) --branch  v1.2.0.0 
@@ -147,7 +145,7 @@ function callBack( $deleted ) { if( $deleted ) { echo  " Deleted record! "; } }
 
 // col_name OR ( * ) if selected all data
 // empty table run with [ 'mixed' ]
- $wineVanilla->wine_delete( '', [
+$wineVanilla->wine_delete( '', [
   
      'table_name',
      'condition' => [" WHERE id  = 107 "] 
