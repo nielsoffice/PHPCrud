@@ -1,6 +1,7 @@
 <?php 
 
 namespace  PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
+
 /**
  * 
  * Would you like me to treat a cake and coffee ?

@@ -70,7 +70,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = array())     
+  protected function execute(array $query, string $data_type = "", array $data_values = [] )     
   {   
       # CHECK IF HAS QUERY SET 
       $stmt = $this->db_wine->prepare($query);
@@ -92,7 +92,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/ 
-  protected function bind_data_type_params($stmt, string $data_type, array $data_values = array())
+  protected function bind_data_type_params($stmt, string $data_type, array $data_values = [] )
   {    
       # Initialized emoty arrays of data
       $request_data[] = & $data_type;

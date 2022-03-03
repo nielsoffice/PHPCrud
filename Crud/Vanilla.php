@@ -524,7 +524,6 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
   private function do_delete( $MySQLi, $col_name, $query , $callback , $debug )
   {
 
-      # Initial Prepare empty SQL Query base on dev-mode cases
    # Check if the array has ?[ condition ] and if true unset it and return appropriate
    $do_delete_request = [
 
@@ -661,14 +660,14 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
         {
           
           /**
-           * @param return if the process would be a CRU [ CREATE ] [ UDPATE ] [ DELETE ]
+           * @param return if the process would be a CUD [ CREATE ] [ UPDATE ] [ DELETE ]
           **/       
           case 'make_update_delete':
            return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true);
            break; 
 
           /**
-           * @param return if the process would be a Delete [ FETCH ]
+           * @param return if the process would be a Read [ FETCH ]
           **/  
           case 'fetch':
            return (array)(CRUDWine::wine_request_call_back_fetch( $MySQLi , $this->wine_fetch, $callback, $debug));

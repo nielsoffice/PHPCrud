@@ -15,6 +15,7 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 <h3>Plugin PHPCrud Installation:</h3>
 
 ```PHP
+
 | - root folder
     | - Library folder // create Library folder if not yet exist !
       | - PHPWine
@@ -26,7 +27,8 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
             | - prop.php
             | - LICENSE
             | - README.md
-            | - composer.json        
+            | - composer.json
+                    
 ```
 <h3>Dependency Installation:</h3>
 
@@ -189,7 +191,7 @@ $wineCrud = new Vanilla(Vanilla::DELETE, string $tbl_name = null , array $query 
 
 <h2>Thanks To:</h2>
 <h5>
-Github : To allow me to upload my PHP Library PHPWine Vanilla Flavour to repository<br /> 
+Github : To allow me to upload my PHPWine plugin Vanilla Flavour to repository<br /> 
 php.net : To oppurtunity Develop web application using corePHP - PHPFrameworks<br />
 </h5>
 
