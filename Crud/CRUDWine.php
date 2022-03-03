@@ -164,23 +164,33 @@ class CRUDWine extends  DBWine {
       
       # Initialized emoty arrays of data  
       $wine_array_of_data = array();
-      
-      # check if wine is connected to server 
-      if ( $wine_result   = $server->query( $query )) :
-        
-       # then loop data from databse as requested ionto call back function ! 
-       if ( $wine_result->num_rows > 0 ) {  while($wine_data = $wine_result->fetch_assoc()) {  $wine_array_of_data[] = $wine_data; }
+          // Error handler cb 
+          if( !is_null($callback) && !function_exists($callback) ) {
+           
+            $this->wine_crud_error_handler( ERRORHANDLER::callBackRequestErrorHandler( $callback ) );
+            exit();
+
+        }
+        elseif( !is_null($callback) && function_exists($callback) ) {
+
+         # check if wine is connected to server 
+        if ( $wine_result   = $server->query( $query )) :
+          
+                  # then loop data from databse as requested ionto call back function ! 
+          if ( $wine_result->num_rows > 0 ) {  while($wine_data = $wine_result->fetch_assoc()) {  $wine_array_of_data[] = $wine_data; }
+            
             # check array sould not empty !
             # then return data through call back function !
-           if( !empty($wine_array_of_data) ) { return (array) $callback($wine_array_of_data); }
+            if( !empty($wine_array_of_data) ) { return (array) $callback($wine_array_of_data); }
 
-       # else return false !
-       } else {  return $callback(false); }
+            # else return false !
+            } else {  return $callback(false); }
+      
+      endif;
 
-     endif;
-    
+      }
+      
      # Prepare exit !
-     return false;
      exit();
  
      }
