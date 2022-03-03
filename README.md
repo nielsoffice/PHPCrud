@@ -19,7 +19,7 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
     | - Library folder // create Library folder if not yet exist !
       | - PHPWine
           | - Plugins
-             |- Crud
+             |- PHPCrud
           | - Wine
             | - src
             | - PHPWine.php
@@ -56,16 +56,14 @@ Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
 ```PHP
 # Create or Insert Data to Database
 
-if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
+ if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
 
-function callBack( $inserted ) { if( $inserted ) { echo  " Added new record! "; } }
-
-// New instance
-$wineVanilla = new Vanilla();
-// Create incase insert join w/request last ID : 
-$wine = $wineVanilla->wine_creates( 'tb_name' , [ 
+ // New instance
+ $wineVanilla = new Vanilla();
+ // Create incase insert bulk & join w/request last ID : 
+ $wine = $wineVanilla->wine_creates( 'tbl_name' , [ 
      
-    'col_name_1'  => '?',
+    'col_name_1'  => '?', // !must be like : [ '?' ][ $debug : true ] " Insert into tbl_name (col1, col2) VALUES ( ?,? ) ";
     'col_name_2'  => '?'
 
  ] , "ss" , array(
@@ -73,25 +71,21 @@ $wine = $wineVanilla->wine_creates( 'tb_name' , [
     $value_col_name_1,
     $value_col_name_2 
     
-));
+ ));
  
-echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
+ echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
 
-// OR Create single data
- $c = new Vanilla( Vanilla::MAKE, 'tbl_info', [ 
+ // OR Create single data
+ $c = new Vanilla( Vanilla::MAKE, 'tbl_name', [ 
      
-      'col_name_1'  => 'col_name_1_val',
-      'col_name_2'  => 'col_name_2_val'
+     'col_name_1'  => 'col_name_1_val',
+     'col_name_2'  => 'col_name_2_val'
   
-   ] ,'callBack' );
+ ] , 'callBack' );
 
- function callBack( $new_record ) {
+ function callBack( $new_record ) { if( $new_record ) { echo  " Added new record! "; }  }
 
-  if( $new_record ) { echo  " Added new record! "; } 
-
- }
-
-$wine_db->close();
+ $wine_db->close();
 ```
 ```PHP
 # Read Data from Database
@@ -102,10 +96,10 @@ if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_
 function callBack( $read_datas ) { if( $read_datas ) { foreach( $read_datas as  $val ) { echo $val["col_name"]; }  } }
 
 // Query
-$wineVanilla->wine_fetch(  'tbl_info', [ 'name' ], 'callBack' );
+$wineVanilla->wine_fetch(  'tbl_name', [ 'name' ], 'callBack' );
 
 // OR
-$wine  = NEW Vanilla( Vanilla::FETCH, 'tb_name',  [
+$wine  = NEW Vanilla( Vanilla::FETCH, 'tbl_name',  [
      
     'col_name',
      
@@ -121,20 +115,20 @@ if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_
 function callBack( $updated ) { if( $updated ) { echo  " Updated record! "; } }
 
  // Update 
- $wineVanilla->wine_update('tbl_info', [
+ $wineVanilla->wine_update( 'tbl_info', [
   
      'col_name'  => 'col_name_val',
      'condition' => [" WHERE id  = 107 "] 
 
- ] , 'update' );
+ ] , 'callBack' );
 
-// OR
-$wine = new Vanilla( Vanilla::PUT, 'table_name', [
+ // OR
+ $wine = new Vanilla( Vanilla::PUT, 'table_name', [
 
-    'col_name'  => 'Value_1',
-    'condition' => [" WHERE tabel_id  = 1 "] 
+     'col_name'  => 'Value_1',
+     'condition' => [" WHERE tabel_id  = 1 "] 
     
-] , 'callBack' );
+ ] , 'callBack' );
 
 $wine_db->close();
 ```
@@ -144,20 +138,20 @@ if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_
 
 function callBack( $deleted ) { if( $deleted ) { echo  " Deleted record! "; } }
 
-// table_name OR ( * ) if selected all data
+// col_name OR ( * ) if selected all data
 // empty table run with [ 'mixed' ]
- $wineVanilla->wine_delete('', [
+ $wineVanilla->wine_delete( '', [
   
      'table_name',
      'condition' => [" WHERE id  = 107 "] 
 
- ] , 'deleted' );
+ ] , 'callBack' );
 
 // OR
 $useWine = new Vanilla( Vanilla::DELETE, '', [
 
-        'table_name',
-        'condition' => [" WHERE id  = 1 "] 
+    'table_name',
+    'condition' => [" WHERE id  = 1 "] 
     
 ] , 'callBack' );
 
@@ -166,25 +160,25 @@ $wine_db->close();
 
 ```php
 // Query incase of mixed 
-$query = [ 'mixed' => [" DELETE FROM `tb_name` WHERE `col_id` = 179; "] ] 
+$query = [ 'mixed' => [" DELETE FROM `tbl_name` WHERE `col_id` = 179; "] ] 
 
 $useWine->wine_delete( null, $query , 'callBack' );
 
-// Query debugging set $debug = true | last @param
-$useWine->wine_delete( 'tb_name', $query , 'callBack',  true );
+// Incase of Query debugging set $debug = true | last @param
+$useWine->wine_delete( 'tbl_name', $query , 'callBack',  true );
 
 # Registered array keys 
 [ 'condition' ] && [ 'mixed' ]
 
-# PHPCrud Flag 
+# PHPCrud Flags
 // Create
-$wineCrud = new Vanilla(Vanilla::MAKE,   string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::MAKE,   string $tbl_name = null , array $query = [] , mixed $callback = null, bool $debug = false );
 // Read
-$wineCrud = new Vanilla(Vanilla::FETCH,  string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::FETCH,  string $tbl_name = null , array $query = [] , mixed $callback = null, bool $debug = false );
 // Update
-$wineCrud = new Vanilla(Vanilla::PUT,    string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::PUT,    string $tbl_name = null , array $query = [] , mixed $callback = null, bool $debug = false );
 // Delete
-$wineCrud = new Vanilla(Vanilla::DELETE, string $db_table = null , array $query = [] , mixed $callback = null, bool $debug = false );
+$wineCrud = new Vanilla(Vanilla::DELETE, string $tbl_name = null , array $query = [] , mixed $callback = null, bool $debug = false );
 ```
 <hr /> 
 

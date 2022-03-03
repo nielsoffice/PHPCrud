@@ -29,8 +29,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * SOFTWARE.
  *
  * @category   PHPCrud Vanilla
- * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features
- *            
+ * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features    
  *            
  * @author    Leinner Zednanref <nielsoffice.wordpress.php@gmail.com>
  * @license   MIT License
@@ -201,7 +200,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
      * @since 1.0.0.0 supprt PHPWine v1.2.0.9
      * @since 02.28.2022
      **/
-      case SELF::FETCH :
+     case SELF::FETCH :
       return $this->do_fetch( $this->requestConnection(), $db_table, $query , $callback , $debug );
       break;
 
@@ -220,8 +219,8 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
      * @since 02.28.2022
      **/
       case SELF::DELETE :
-        return $this->do_delete( $this->requestConnection(), $db_table, $query , $callback , $debug );
-        break;
+       return $this->do_delete( $this->requestConnection(), $db_table, $query , $callback , $debug );
+       break;
 
      default:
       
@@ -234,7 +233,8 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
       . '<br />' 
       . '<br/>$useWine  = NEW Vanilla( Vanill::MAKE , ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ); '
       );
-
+      exit();
+      
      break;
 
     } 
@@ -510,7 +510,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
   private function do_delete( $MySQLi, $col_name, $query , $callback , $debug )
   {
 
-      # Initial Prepare empty SQL Query base on dev-mode cases
+   # Initial Prepare empty SQL Query base on dev-mode cases
    # Check if the array has ?[ condition ] and if true unset it and return appropriate
    $do_delete_request = [
 
@@ -647,14 +647,14 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
         {
           
           /**
-           * @param return if the process would be a CRU [ CREATE ] [ UDPATE ] [ DELETE ]
+           * @param return if the process would be a CUD [ CREATE ] [ UPDATE ] [ DELETE ]
           **/       
           case 'make_update_delete':
-           return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true);
+           return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true );
            break; 
 
           /**
-           * @param return if the process would be a Delete [ FETCH ]
+           * @param return if the process would be a Read [ FETCH ]
           **/  
           case 'fetch':
            return (array)(CRUDWine::wine_request_call_back_fetch( $MySQLi , $this->wine_fetch, $callback, $debug));
