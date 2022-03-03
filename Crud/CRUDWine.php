@@ -3,6 +3,7 @@
 namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
 use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
+use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
@@ -44,18 +45,20 @@ use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
 
 class CRUDWine extends  DBWine {
 
+  use ErrorHandler;
+
   /**
    * Defined: Database Object
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function requestConnection() : object 
-  {
+  protected function requestConnection() : object {
    
     // Establish Connection 
-    $db_wine = new \mysqli( SELF::DB_HOST, SELF::DB_USERNAME, SELF::DB_PASSWORD, SELF::DB_NAME );
+    $db_wine = new \mysqli( DBWine::DB_HOST, DBWine::DB_USERNAME, DBWine::DB_PASSWORD, DBWine::DB_NAME );
     // Verify connection status
     if( $db_wine  === false ) { die("ERROR: Could not connect. " . $db_wine->connect_error); }
+    
     // Then return activated connection
     $db_wine->set_charset("utf8");
     return $db_wine;
@@ -70,7 +73,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = [] )     
+  protected function execute(array $query, string $data_type = "", array $data_values = array())     
   {   
       # CHECK IF HAS QUERY SET 
       $stmt = $this->db_wine->prepare($query);
@@ -92,14 +95,32 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/ 
-  protected function bind_data_type_params($stmt, string $data_type, array $data_values = [] )
+  protected function bind_data_type_params($stmt, string $data_type, array $data_values = array())
   {    
+    if( $stmt )
+    {
       # Initialized emoty arrays of data
       $request_data[] = & $data_type;
       # loop through it
       for ($i = 0; $i < count($data_values); $i ++) { $request_data[] = & $data_values[$i]; }
       # set callable then return bind param associated with valid numbers of value !
       call_user_func_array(array( $stmt, 'bind_param' ), $request_data);
+
+    } else {
+      
+      $this->wine_crud_error_handler( '
+
+      '.ERRORHANDLER::$COULD_NOT_CONNECT.' 
+      
+      '.ERRORHANDLER::$ERROR_MSG.'
+      '.ERRORHANDLER::$PHPCRUD_DB_CONFIG.'
+      '.ERRORHANDLER::DB_ERROR_HANDLER( DBWine::DB_HOST, DBWine::DB_USERNAME, DBWine::DB_PASSWORD, DBWine::DB_NAME ).' 
+      
+      '
+
+      );
+      exit();
+    }
   }  
 
   /**
@@ -108,11 +129,19 @@ class CRUDWine extends  DBWine {
    * @var|@property   : $callback
    * @since v1.2.0.9
    * @since 02.28.2022
-   **/
+   **/                                
     protected function wine_request_call_back( mixed $server = null , string $query = null , mixed $callback = null ) : mixed {
-      
-     # do insert multiple value from arrays of data
-     if ( $server->multi_query( $query  ) === TRUE) : return !is_null($callback) ? $callback(true) : false ; // return call back if set
+     
+      # do insert multiple value from arrays of data
+      if ( $server->multi_query( $query ) === TRUE)  : 
+        
+        return ( !is_null($callback) && !function_exists($callback) ) ? $this->wine_crud_error_handler( 
+          
+           ERRORHANDLER::callBackRequestErrorHandler( $callback )       
+          
+        ) :  // return call back if set
+        ( ( !is_null($callback) && function_exists($callback) ) ?  $callback(true) : false ) ;  
+
      # else if error connection server return false disconnected !
      else                                           : return "Error: " . $query . "<br>" . $server->error;
 
