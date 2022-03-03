@@ -1,6 +1,6 @@
 <?php 
 
-namespace PHPWine\VanillaFlavour\Plugins\Crud;
+namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 

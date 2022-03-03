@@ -1,7 +1,6 @@
 <?php 
 
-namespace PHPWine\VanillaFlavour\Plugins\Crud;
-
+namespace  PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 /**
  * 
  * Would you like me to treat a cake and coffee ?
@@ -27,16 +26,16 @@ Abstract Class DBWine {
    # HOST PASSWORD
    const DB_PASSWORD = '';
    # DATBASE NAME
-   const DB_NAME     = '';
+   const DB_NAME     = 'importfile';
      
  /**
   * @var 
-  * @property requestConncetion
-  * Defined Private Property Connection 
+  * @property requestConnection
+  * Defined public method Connection 
   * @since v1.0.0.0
   * @since 03.02.2022
   **/
-  abstract public function requestConncetion() : object;
+  abstract public function requestConnection() : object;
 
  }
    

@@ -1,8 +1,8 @@
 <?php 
 
-namespace PHPWine\VanillaFlavour\Plugins\Crud;
+namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
- use \PHPWine\VanillaFlavour\Plugins\Crud\CRUDWine;
+ use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\CRUDWine;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
@@ -193,7 +193,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
      * @since 02.28.2022
      **/
      case SELF::MAKE :
-      return $this->do_make( $this->requestConncetion(), $db_table, $query , $callback , $debug );
+      return $this->do_make( $this->requestConnection(), $db_table, $query , $callback , $debug );
       break;
 
      /**
@@ -202,7 +202,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
      * @since 02.28.2022
      **/
       case SELF::FETCH :
-      return $this->do_fetch( $this->requestConncetion(), $db_table, $query , $callback , $debug );
+      return $this->do_fetch( $this->requestConnection(), $db_table, $query , $callback , $debug );
       break;
 
      /**
@@ -211,7 +211,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
      * @since 02.28.2022
      **/
      case SELF::PUT :
-      return $this->do_update( $this->requestConncetion(), $db_table, $query , $callback , $debug );
+      return $this->do_update( $this->requestConnection(), $db_table, $query , $callback , $debug );
       break;
 
      /**
@@ -220,7 +220,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
      * @since 02.28.2022
      **/
       case SELF::DELETE :
-        return $this->do_delete( $this->requestConncetion(), $db_table, $query , $callback , $debug );
+        return $this->do_delete( $this->requestConnection(), $db_table, $query , $callback , $debug );
         break;
 
      default:
@@ -241,7 +241,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
 
     }
 
-    $this->db_wine = $this->requestConncetion();
+    $this->db_wine = $this->requestConnection();
     
   }
 
@@ -308,8 +308,7 @@ namespace PHPWine\VanillaFlavour\Plugins\Crud;
         return $request_data_id;
 
    }
-   
-
+  
  /** Defined :Private execute for __construct() ;
    * @var|@property   : $server
    * @var|@property   : $db_table

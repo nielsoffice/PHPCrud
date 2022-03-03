@@ -1,8 +1,8 @@
 <?php 
 
-namespace PHPWine\VanillaFlavour\Plugins\Crud;
+namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
-use \PHPWine\VanillaFlavour\Plugins\Crud\DBWine;
+use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
@@ -28,8 +28,8 @@ use \PHPWine\VanillaFlavour\Plugins\Crud\DBWine;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @category   PHPLibrary PHPWine\VanillaFlavour
- * @package    PHPHtml-Optimizer | CodeDesigner/Enhancer | Advance Form Builder | Handling Form Validation | Form Validation v2 | BASIC-Authentication | HtmlMinifier
+ * @category   PHPCrud Vanilla
+ * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features
  *            
  *            
  * @author    Leinner Zednanref <nielsoffice.wordpress.php@gmail.com>
@@ -49,7 +49,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  public function requestConncetion() : object 
+  public function requestConnection() : object 
   {
    
     // Establish Connection 
@@ -70,7 +70,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = array())     
+  protected function execute(array $query, string $data_type = "", array $data_values = [] )     
   {   
       # CHECK IF HAS QUERY SET 
       $stmt = $this->db_wine->prepare($query);
@@ -92,7 +92,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/ 
-  protected function bind_data_type_params($stmt, string $data_type, array $data_values = array())
+  protected function bind_data_type_params($stmt, string $data_type, array $data_values = [] )
   {    
       # Initialized emoty arrays of data
       $request_data[] = & $data_type;
@@ -111,7 +111,7 @@ class CRUDWine extends  DBWine {
    **/
     protected function wine_request_call_back( mixed $server = null , string $query = null , mixed $callback = null ) : mixed {
       
-     # do insert multi ple vaue from arrays odf data
+     # do insert multiple value from arrays of data
      if ( $server->multi_query( $query  ) === TRUE) : return !is_null($callback) ? $callback(true) : false ; // return call back if set
      # else if error connection server return false disconnected !
      else                                           : return "Error: " . $query . "<br>" . $server->error;
@@ -133,13 +133,13 @@ class CRUDWine extends  DBWine {
    **/
     protected function wine_request_call_back_fetch( mixed $server = null , string $query = null , mixed $callback = null ) : array {
       
-      # Initialized emoty arrays of data  
+      # Initialized epmty arrays of data  
       $wine_array_of_data = array();
       
       # check if wine is connected to server 
       if ( $wine_result   = $server->query( $query )) :
         
-       # then loop data from databse as requested ionto call back function ! 
+       # then loop data from databse as requested into call back function ! 
        if ( $wine_result->num_rows > 0 ) {  while($wine_data = $wine_result->fetch_assoc()) {  $wine_array_of_data[] = $wine_data; }
             # check array sould not empty !
             # then return data through call back function !

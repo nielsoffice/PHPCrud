@@ -31,8 +31,8 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 <h3>Dependency Installation:</h3>
 
 ```PHP
-# Namespace / Dependencies
-use PHPWine\VanillaFlavour\Plugins\Crud\Vanilla;
+# Namespace / Dependency
+use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
 ```
 ```PHP
 # FLAG [ CRUD ] : (  Optional ) 
@@ -41,7 +41,7 @@ Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
 ```
 ```PHP
  // Database Configuration
- $path > ../plugins/Crud/DBWine.php
+ $path > ./plugins/Crud/DBWine.php
   
  # HOST OR SERVER NAME
  const DB_HOST     = 'localhost';
@@ -65,23 +65,23 @@ $wineVanilla = new Vanilla();
 // Create incase insert join w/request last ID : 
 $wine = $wineVanilla->wine_creates( 'tb_name' , [ 
      
-    'name'         => '?',
-    'description'  => '?'
+    'col_name_1'  => '?',
+    'col_name_2'  => '?'
 
  ] , "ss" , array(
         
-    $name,
-    $description 
+    $value_col_name_1,
+    $value_col_name_2 
     
 ));
  
 echo ( !empty($wine) ) ? "Last_id : {$wine} Added new record! " : ''; 
 
-// OR
+// OR Create single data
  $c = new Vanilla( Vanilla::MAKE, 'tbl_info', [ 
      
-      'name'         => 'Nikkie',
-      'description'  => 'The drummer'
+      'col_name_1'  => 'col_name_1_val',
+      'col_name_2'  => 'col_name_2_val'
   
    ] ,'callBack' );
 
@@ -123,7 +123,7 @@ function callBack( $updated ) { if( $updated ) { echo  " Updated record! "; } }
  // Update 
  $wineVanilla->wine_update('tbl_info', [
   
-     'name'      => 'Niel Fern',
+     'col_name'  => 'col_name_val',
      'condition' => [" WHERE id  = 107 "] 
 
  ] , 'update' );
@@ -148,7 +148,7 @@ function callBack( $deleted ) { if( $deleted ) { echo  " Deleted record! "; } }
 // empty table run with [ 'mixed' ]
  $wineVanilla->wine_delete('', [
   
-     'tbl_info',
+     'table_name',
      'condition' => [" WHERE id  = 107 "] 
 
  ] , 'deleted' );
@@ -166,7 +166,7 @@ $wine_db->close();
 
 ```php
 // Query incase of mixed 
-$query = [ 'mixed' => [" DELETE FROM `tb_name` WHERE `fltr_id` = 179; "] ] 
+$query = [ 'mixed' => [" DELETE FROM `tb_name` WHERE `col_id` = 179; "] ] 
 
 $useWine->wine_delete( null, $query , 'callBack' );
 
