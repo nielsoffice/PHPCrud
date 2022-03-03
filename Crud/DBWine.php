@@ -1,7 +1,6 @@
 <?php 
 
 namespace  PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
-
 /**
  * 
  * Would you like me to treat a cake and coffee ?
@@ -36,6 +35,10 @@ Abstract Class DBWine {
   * @since v1.0.0.0
   * @since 03.02.2022
   **/
-  abstract public function requestConnection() : object;
+  abstract protected function requestConnection() : object;
 
  }
+   
+
+
+ 

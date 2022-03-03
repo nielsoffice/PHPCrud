@@ -51,6 +51,13 @@ Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
  const DB_PASSWORD = '';
  # DATBASE NAME
  const DB_NAME     = '';
+
+-----------------------------------
+
+ // New instance, Incase request to Join in single database connection
+ $wineVanill = new Vanilla();
+ // Establish public connection 
+ $wine_db    = $new->wine_db();
 ```
 
 ```PHP
@@ -58,8 +65,6 @@ Vanilla::MAKE | Vanilla::FETCH | Vanilla::PUT | Vanilla::DELETE
 
  if( $wine_db === false ) { die("ERROR: Could not connect. " . $wine_db->connect_error); }
 
- // New instance
- $wineVanilla = new Vanilla();
  // Create incase insert bulk & join w/request last ID : 
  $wine = $wineVanilla->wine_creates( 'tbl_name' , [ 
      

@@ -49,7 +49,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  public function requestConnection() : object 
+  protected function requestConnection() : object 
   {
    
     // Establish Connection 
@@ -70,7 +70,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = [] )     
+  protected function execute(array $query, string $data_type = "", array $data_values = array())     
   {   
       # CHECK IF HAS QUERY SET 
       $stmt = $this->db_wine->prepare($query);
@@ -92,7 +92,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/ 
-  protected function bind_data_type_params($stmt, string $data_type, array $data_values = [] )
+  protected function bind_data_type_params($stmt, string $data_type, array $data_values = array())
   {    
       # Initialized emoty arrays of data
       $request_data[] = & $data_type;
@@ -133,13 +133,13 @@ class CRUDWine extends  DBWine {
    **/
     protected function wine_request_call_back_fetch( mixed $server = null , string $query = null , mixed $callback = null ) : array {
       
-      # Initialized epmty arrays of data  
+      # Initialized emoty arrays of data  
       $wine_array_of_data = array();
       
       # check if wine is connected to server 
       if ( $wine_result   = $server->query( $query )) :
         
-       # then loop data from databse as requested into call back function ! 
+       # then loop data from databse as requested ionto call back function ! 
        if ( $wine_result->num_rows > 0 ) {  while($wine_data = $wine_result->fetch_assoc()) {  $wine_array_of_data[] = $wine_data; }
             # check array sould not empty !
             # then return data through call back function !
