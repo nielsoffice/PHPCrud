@@ -31,6 +31,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * @category   PHPCrud Vanilla
  * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features
  *            
+ *            
  * @author    Leinner Zednanref <nielsoffice.wordpress.php@gmail.com>
  * @license   MIT License
  * @link      https://github.com/nielsofficeofficial/PHPWine
@@ -245,8 +246,6 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
   }
 
   /**
-  * @var 
-  * @property Connection
   * Defined request public connection 
   * @since v1.0.0.0
   * @since 03.02.2022
@@ -321,6 +320,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
    }
    
+
  /** Defined :Private execute for __construct() ;
    * @var|@property   : $server
    * @var|@property   : $db_table
@@ -522,6 +522,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
   private function do_delete( $MySQLi, $col_name, $query , $callback , $debug )
   {
 
+      # Initial Prepare empty SQL Query base on dev-mode cases
    # Check if the array has ?[ condition ] and if true unset it and return appropriate
    $do_delete_request = [
 
@@ -621,6 +622,18 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
   public function wine_delete( ?string $col_name = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string { return  $this->do_delete( $this->db_wine, $col_name, $query , $callback , $debug ); }
 
   /**
+   * Define : extract as implode wine vanilla
+   * @var|@property   : $separator
+   * @var|@property   : $extracting
+   * @since 1.0.0.0 supprt PHPWine v1.2.0.9
+   * @since 03.04.2022
+   **/
+  static public function wine_extract( array $extracting = [] , array|string $separator = "" ) : string
+  {
+    return implode( $separator, $extracting );
+  }
+
+  /**
    * @var|@property   : $server
    * @var|@property   : $db_table
    * @var|@property   : $query
@@ -658,7 +671,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
         {
           
           /**
-           * @param return if the process would be a CUD [ CREATE ] [ UPDATE ] [ DELETE ]
+           * @param return if the process would be a CRU [ CREATE ] [ UDPATE ] [ DELETE ]
           **/       
           case 'make_update_delete':
            return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true);
