@@ -44,6 +44,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * @method wine_fetch();
  * @method wine_update();
  * @method wine_delete();
+ * @method wine_extract();
  *
  */
 
