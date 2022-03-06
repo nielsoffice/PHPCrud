@@ -5,11 +5,11 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\CRUDWine;
 
 /**
- * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
+ * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.1 Cooked by nielsoffice 
  *
  * MIT License
  *
- * PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 free software: you can redistribute it and/or modify.
+ * PHPWine\VanillaFlavour v1.0.0.1 free software: you can redistribute it and/or modify.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -37,14 +37,13 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * @link      https://github.com/nielsofficeofficial/PHPWine
  * @link      https://github.com/nielsofficeofficial/PHPWine/blob/PHPWine_Vanilla_Flavour/README.md
  * @link      https://www.facebook.com/nielsofficeofficial
- * @version   1.0.0.0 support PHPWine v1.2.0.9
- * @since     03.02.2022
+ * @version   1.0.0.1 support PHPWine v1.2.0.9
+ * @since     02.28.2022
  * 
  * @method wine_creates();
  * @method wine_fetch();
  * @method wine_update();
  * @method wine_delete();
- * @method wine_extract();
  *
  */
 
@@ -269,7 +268,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
    **/
   public function wine_creates( string $db_table  , array $query = [], string $dataType = null , array $values = null, bool $debug = false) : mixed
   {
-
+    
       // # If condition gets [ TRUE ] set that custom query as the main query return only string type
      if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED , $this->sql_query = $query ) ) { $this->wine_insert = implode("", $query[SELF::FILTER_MIXED] );
     
@@ -317,8 +316,8 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
         $stmt->execute();
         $request_data_id = $stmt->insert_id;
-        return $request_data_id;
-
+        return $request_data_id; 
+ 
    }
    
 
@@ -690,7 +689,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
           **/
           default:
            return false . 'CRUD request __construct() not accessable !' ;
-           exit();
+    
            break;
 
         }        

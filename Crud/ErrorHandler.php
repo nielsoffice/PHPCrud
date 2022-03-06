@@ -3,11 +3,11 @@
 namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
 
 /**
- * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
+ * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.1 Cooked by nielsoffice 
  *
  * MIT License
  *
- * PHPWine\VanillaFlavour v1.0.0.0 free software: you can redistribute it and/or modify.
+ * PHPWine\VanillaFlavour v1.0.0.1 free software: you can redistribute it and/or modify.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,8 +26,8 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @category   PHPLibrary PHPWine\VanillaFlavour
- * @package    PHPHtml-Optimizer | CodeDesigner/Enhancer | Advance Form Builder | Handling Form Validation | Form Validation v2 | BASIC-Authentication | HtmlMinifier
+ * @category   PHPCrud Vanilla
+ * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features
  *            
  *            
  * @author    Leinner Zednanref <nielsoffice.wordpress.php@gmail.com>
@@ -35,7 +35,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * @link      https://github.com/nielsofficeofficial/PHPWine
  * @link      https://github.com/nielsofficeofficial/PHPWine/blob/PHPWine_Vanilla_Flavour/README.md
  * @link      https://www.facebook.com/nielsofficeofficial
- * @version   1.0.0.0 support PHPWine v1.2.0.9
+ * @version   1.0.0.1 support PHPWine v1.2.0.9
  * @since     02.28.2022
  *
  */

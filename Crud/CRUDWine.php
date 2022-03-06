@@ -6,11 +6,11 @@ use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
 use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
 
 /**
- * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.0 Cooked by nielsoffice 
+ * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.1 Cooked by nielsoffice 
  *
  * MIT License
  *
- * PHPWine\VanillaFlavour v1.0.0.0 free software: you can redistribute it and/or modify.
+ * PHPWine\VanillaFlavour v1.0.0.1 free software: you can redistribute it and/or modify.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -38,7 +38,7 @@ use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
  * @link      https://github.com/nielsofficeofficial/PHPWine
  * @link      https://github.com/nielsofficeofficial/PHPWine/blob/PHPWine_Vanilla_Flavour/README.md
  * @link      https://www.facebook.com/nielsofficeofficial
- * @version   1.0.0.0 support PHPWine v1.2.0.9
+ * @version   1.0.0.1 support PHPWine v1.2.0.9
  * @since     02.28.2022
  *
  */
@@ -73,7 +73,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = array())     
+  protected function execute(array $query, string $data_type = "", array $data_values = [] )     
   {   
       # CHECK IF HAS QUERY SET 
       $stmt = $this->db_wine->prepare($query);
@@ -95,7 +95,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/ 
-  protected function bind_data_type_params($stmt, string $data_type, array $data_values = array())
+  protected function bind_data_type_params($stmt, string $data_type, array $data_values = [] )
   {    
     if( $stmt )
     {
@@ -191,7 +191,7 @@ class CRUDWine extends  DBWine {
       }
       
      # Prepare exit !
-     exit();
+    return [];
  
      }
 
