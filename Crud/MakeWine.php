@@ -210,7 +210,7 @@ interface MakeWine {
      * @var|@property   : $separator
      * @var|@property   : $extracting
      **/
-    static public function wine_extract( array $extracting = [] , array|string $separator = "" ) : string;
+    static public function wine_extract( array $extracting = [] ) : string;
 
     /**
      * Query incase of mixed `

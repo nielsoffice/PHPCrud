@@ -44,6 +44,7 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
  * @method wine_fetch();
  * @method wine_update();
  * @method wine_delete();
+ * @method wine_extract();
  *
  */
 
@@ -628,9 +629,9 @@ namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 03.04.2022
    **/
-  static public function wine_extract( array $extracting = [] , array|string $separator = "" ) : string
+  static public function wine_extract( array $extracting = [] ) : string
   {
-    return implode( $separator, $extracting );
+    return implode( $separator = '', $extracting );
   }
 
   /**
