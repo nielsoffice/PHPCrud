@@ -185,7 +185,8 @@ $wineCrud = new Vanilla(Vanilla::PUT,    string $tbl_name = null , array $query 
 // Delete
 $wineCrud = new Vanilla(Vanilla::DELETE, string $tbl_name = null , array $query = [] , mixed $callback = null, bool $debug = false );
 ```
-<a href="https://github.com/nielsofficeofficial/PHPCrud-sample-data"> Click here Sample data > </a>  
+<a href="https://github.com/nielsofficeofficial/PHPCrud-sample-data"> PHPCrud-sample-data > </a>  
+<a href="https://github.com/nielsofficeofficial/PHPCrud_RESTAPI-Template"> PHPCrud_RESTAPI-Template > </a>  
 <hr /> 
 
 <h2>Thanks To:</h2>

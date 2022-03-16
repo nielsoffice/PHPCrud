@@ -174,7 +174,7 @@ class CRUDWine extends  DBWine {
         elseif( !is_null($callback) && function_exists($callback) ) {
 
          # check if wine is connected to server 
-        if ( $wine_result   = $server->query( $query )) :
+        if ( $wine_result = $server->multi_query( $query )) :
           
                   # then loop data from databse as requested ionto call back function ! 
           if ( $wine_result->num_rows > 0 ) {  while($wine_data = $wine_result->fetch_assoc()) {  $wine_array_of_data[] = $wine_data; }
