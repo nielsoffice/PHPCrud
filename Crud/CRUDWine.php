@@ -1,9 +1,9 @@
 <?php 
 
-namespace PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud;
+namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
 
-use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
-use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
+use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
+use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
 
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.1 Cooked by nielsoffice 
