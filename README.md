@@ -32,7 +32,7 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 
 ```PHP
 # Namespace / Dependency
-use \PHPWine\VanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
+use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
 ```
 ```PHP
 # FLAG [ CRUD ] : (  Optional ) 
