@@ -520,10 +520,19 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
     
   }
 
+ /** Defined :Private execute do_delete() ;
+   * @var|@property   : $server
+   * @var|@property   : $db_table
+   * @var|@property   : $query
+   * @var|@property   : $callback
+   * @var|@property   : $debug 
+   * @since 1.0.0.0 supprt PHPWine v1.2.0.9 ++
+   * @since 03.02.2022
+   **/
   private function do_delete( $MySQLi, $col_name, $query , $callback , $debug )
   {
 
-      # Initial Prepare empty SQL Query base on dev-mode cases
+   # Initial Prepare empty SQL Query base on dev-mode cases
    # Check if the array has ?[ condition ] and if true unset it and return appropriate
    $do_delete_request = [
 

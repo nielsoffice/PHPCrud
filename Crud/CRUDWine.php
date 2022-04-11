@@ -47,6 +47,15 @@ class CRUDWine extends  DBWine {
 
   use ErrorHandler;
 
+ /**
+  * @var 
+  * @property callable
+  * Defined Private Property callable 
+  * @since v1.3.0.1 wine
+  * @since 04.11.2022
+  **/
+  private bool $callable = true;
+
   /**
    * Defined: Database Object
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
@@ -135,12 +144,16 @@ class CRUDWine extends  DBWine {
       # do insert multiple value from arrays of data
       if ( $server->multi_query( $query ) === TRUE)  : 
         
-        return ( !is_null($callback) && !function_exists($callback) ) ? $this->wine_crud_error_handler( 
+        return ( !is_null($callback) && ( !is_string($callback) ? !is_callable($callback) : !function_exists( (string) $callback))  ) ? 
+        
+           $this->wine_crud_error_handler( 
           
            ERRORHANDLER::callBackRequestErrorHandler( $callback )       
           
         ) :  // return call back if set
-        ( ( !is_null($callback) && function_exists($callback) ) ?  $callback(true) : false ) ;  
+        ( ( !is_null($callback) && ( is_string($callback) ? function_exists( (string) $callback) : is_callable($callback) ) ) ? 
+        
+          $callback( $this->callable ) : false ) ;  
 
      # else if error connection server return false disconnected !
      else                                           : return "Error: " . $query . "<br>" . $server->error;
@@ -164,14 +177,15 @@ class CRUDWine extends  DBWine {
       
       # Initialized emoty arrays of data  
       $wine_array_of_data = array();
+
           // Error handler cb 
-          if( !is_null($callback) && !function_exists($callback) ) {
+          if( !is_null($callback) && ( !is_string($callback) ? !is_callable($callback) : !function_exists( (string) $callback))  ) {
            
             $this->wine_crud_error_handler( ERRORHANDLER::callBackRequestErrorHandler( $callback ) );
             exit();
 
-        }
-        elseif( !is_null($callback) && function_exists($callback) ) {
+        } 
+        elseif( !is_null($callback) &&  ( is_string($callback) ? function_exists( (string) $callback) : is_callable($callback) ) ) {
 
          # check if wine is connected to server 
         if ( $wine_result = $server->query( $query )) :
@@ -184,7 +198,7 @@ class CRUDWine extends  DBWine {
             if( !empty($wine_array_of_data) ) { return (array) $callback($wine_array_of_data); }
 
             # else return false !
-            } else {  return $callback(false); }
+            } else {  return $callback( $this->callable = false ); }
       
       endif;
 
