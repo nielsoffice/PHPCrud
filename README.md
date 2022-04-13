@@ -7,8 +7,8 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 // Download Plugin latest version 
  $ git clone https://github.com/nielsofficeofficial/PHPCrud
 
-// Download specified version ( --branch tag ) --branch  v1.2.0.0 
- $ git clone https://github.com/nielsofficeofficial/PHPCrud --branch  v1.2.0.4
+// Download specified version ( --branch tag ) --branch  v1.3.1.0 
+ $ git clone https://github.com/nielsofficeofficial/PHPCrud --branch  v1.3.1.0 
 ```
 <h3>Plugin PHPCrud Installation:</h3>
 
