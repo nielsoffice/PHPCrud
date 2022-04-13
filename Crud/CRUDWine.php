@@ -6,11 +6,11 @@ use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\DBWine;
 use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
 
 /**
- * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.0.0.1 Cooked by nielsoffice 
+ * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.1.0.0 Cooked by nielsoffice 
  *
  * MIT License
  *
- * PHPWine\VanillaFlavour v1.0.0.1 free software: you can redistribute it and/or modify.
+ * PHPWine\VanillaFlavour v1.1.0.0 free software: you can redistribute it and/or modify.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -38,8 +38,8 @@ use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ErrorHandler;
  * @link      https://github.com/nielsofficeofficial/PHPWine
  * @link      https://github.com/nielsofficeofficial/PHPWine/blob/PHPWine_Vanilla_Flavour/README.md
  * @link      https://www.facebook.com/nielsofficeofficial
- * @version   1.0.0.1 support PHPWine v1.2.0.9
- * @since     02.28.2022
+ * @version   v1.1.0.0 support PHPWine v1.2.0.9
+ * @since     04.13.2022
  *
  */
 
