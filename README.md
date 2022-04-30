@@ -162,6 +162,28 @@ $useWine = new Vanilla( Vanilla::DELETE, '', [
 
 $wine_db->close();
 ```
+```PHP
+  /**
+   * Defined : multi server or switch to databases
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
+ wine_multi_server( object $db , vanilla|string $flag, array $method = [] );
+  
+ // Incase of Create 
+ wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', 'values' => [] debug => false ] );
+ 
+ // Incase of Read 
+ wine_multi_server( object $db , Vanilla::FETCH, [ 'query' => [] , 'fetch_request' => function() { ... }, debug => false ] );
+ 
+ // Incase of Update 
+ wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'put_request' => function() { ... }, debug => false ] );
+ 
+ // Incase of Delete 
+ wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'delete_request' => function() { ... }, debug => false ] );
+ 
+```
 
 ```PHP
   /**
@@ -190,28 +212,6 @@ $wine_db->close();
        } 
 
     }
-```
-```PHP
-  /**
-   * Defined : multi server or switch to databases
-   * @since wine v1.3.1.1
-   * @since vanilla v1.3.0.0
-   * @since 04.30.2022
-   **/ 
- wine_multi_server( object $db , vanilla|string $flag, array $method = [] );
-  
- // Incase of Create 
- wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', debug => false ] );
- 
- // Incase of Read 
- wine_multi_server( object $db , Vanilla::FETCH, [ 'query' => [] , 'fetch_request' => function() { ... }, debug => false ] );
- 
- // Incase of Update 
- wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'put_request' => function() { ... }, debug => false ] );
- 
- // Incase of Delete 
- wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'delete_request' => function() { ... }, debug => false ] );
- 
 ```
 ```PHP
   /**
