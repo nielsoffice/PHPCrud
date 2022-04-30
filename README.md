@@ -174,6 +174,12 @@ $wine_db->close();
  // Incase of Create 
  wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', 'values' => [] debug => false ] );
  
+ // Incase get inserted last id 
+ $wine_multi_db = wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', 'values' => [] debug => false ] );
+  
+ echo $wine_multi_db ?? "Sucessfull inserted last ID ".$wine_multi_db ;
+   
+   
  // Incase of Read 
  wine_multi_server( object $db , Vanilla::FETCH, [ 'query' => [] , 'fetch_request' => function() { ... }, debug => false ] );
  
