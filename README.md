@@ -344,7 +344,7 @@ $wine_db->close();
 
      ],'delete_request' => function( $do_update ) { if( $do_update ) {
      
-     $_SESSION['update'] = 'Succesfully Friend Deleted !';
+     $_SESSION['delete'] = 'Succesfully Friend Deleted !';
        
      header("location: vanilla-crud-multi.php?delete-succesfully");   
              
