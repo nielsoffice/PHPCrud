@@ -192,6 +192,24 @@ $wine_db->close();
     }
 ```
 ```PHP
+ Defined : 
+ 
+ wine_multi_server( object $db , vanilla|string $flag, array $method = [] );
+  
+ // Incase of Create 
+ wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', debug => false ] );
+ 
+ // Incase of Read 
+ wine_multi_server( object $db , Vanilla::FETCH, [ 'query' => [] , 'fetch_request' => function() { ... }, debug => false ] );
+ 
+ // Incase of Update 
+ wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'put_request' => function() { ... }, debug => false ] );
+ 
+ // Incase of Delete 
+ wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'delete_request' => function() { ... }, debug => false ] );
+ 
+```
+```PHP
   /**
    * Defined: Incase of Read Multiple DB or switch
    * @since wine v1.3.1.1
@@ -228,7 +246,8 @@ $wine_db->close();
               
           }, 'debug' => false ] );
           
-          echo $this->init->wine_extract( $this->read);
+          // execute
+          echo $this->init->wine_extract($this->read);
 
 ```
 ```PHP
