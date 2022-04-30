@@ -163,6 +163,168 @@ $useWine = new Vanilla( Vanilla::DELETE, '', [
 $wine_db->close();
 ```
 
+```PHP
+  /**
+   * Defined: Incase of Create Multiple DB or switch
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
+  if(isset($_REQUEST['insertData']) == true ) {
+
+     if( $multiC = $this->vanilla->wine_multi_server( new mysqli('localhost','root','','multiserver'), $this->vanilla::MAKE, ['query' => [ 
+        
+         'mixed' => [' INSERT INTO crud ( multi_name , multi_mobile , multi_email ) VALUES ( ?,?,? ); ']
+                  
+        ], 'dataType' => 'sss', 'values'=> array(
+                      
+         trim($_POST['friend_name'])   ?? '',
+         trim($_POST['friend_mobile']) ?? '',
+         trim($_POST['friend_email'])  ?? ''
+              
+         ), 'debug' => false ] ) ) {
+          
+          $_SESSION['create'] = "Last_id : " . $multiC . " Added new record! ";
+                
+          header("location: vanilla-crud-multi.php?create-succesfully"); 
+       } 
+
+    }
+```
+```PHP
+  /**
+   * Defined: Incase of Read Multiple DB or switch
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
+     $this->read = $this->vanilla->wine_multi_server(new mysqli('localhost','root','','multiserver'), $this->vanilla::FETCH, [ 'query' => [ 
+        
+            'mixed' =>  [ "SELECT * FROM  crud ORDER BY id DESC LIMIT 3 " ]
+                 
+          ], 'fetch_request' => function( $read )  {  
+                  
+               $friends = array(); if( $read )  { 
+                 
+                foreach ($read as $value) {  
+                   
+                   $friends[] = ELEM('tr', [ CHILD => [
+                  
+                       ['td', VALUE => [ $value["multi_name"] ]   ],
+                       ['td', VALUE => [ $value["multi_mobile"] ] ],
+                       ['td', VALUE => [ $value["multi_email"]  ] ],
+                       ['th', VALUE => [ ELEM('a', ELEM('i','', [['class','aria-hidden'],['fa fa-pencil','true']]) ,[['href'],['vanilla-crud-multi.php?edit='.$value["id"] .'']]) ]  ],
+                       ['th', VALUE => [ ELEM('a', ELEM('i','', [['class','aria-hidden'],['fa fa-trash' ,'true']]) ,[['href'],['vanilla-crud-multi.php?delete='.$value["id"] .'']])  ]  ] 
+                    
+                      ]
+                    
+                    ]);
+                  
+               }  return (array)  $friends ;
+       
+             } 
+               
+            return [];
+              
+          }, 'debug' => false ] );
+          
+          echo $this->init->wine_extract( $this->read);
+
+```
+```PHP
+  /**
+   * Defined: Incase of Read Multiple DB or switch
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
+   if (isset($_REQUEST['edit']) == true ) :
+     
+   $this->updateRequest  = true; 
+         
+   $id     = $_REQUEST['edit'];
+         
+   $friend = $this->vanilla->wine_multi_server(new mysqli('localhost','root','','multiserver'), $this->vanilla::FETCH, [ 'query' => [
+            
+      'mixed' => [" SELECT * FROM crud WHERE id = ". $id ] 
+        
+    ], 'fetch_request' => function ( $friend ) {
+            
+    if($friend) { foreach($friend as $val ) { return $val; } }
+
+    }, 'debug' => false] );
+       
+     $this->friend_name    =  $friend['multi_name'];
+     $this->friend_mobile  =  $friend['multi_mobile'];
+     $this->friend_email   =  $friend['multi_email'];
+     $this->friend_id      =  $id;
+        
+    endif;
+```
+```PHP
+  /**
+   * Defined: Incase of Read Multiple DB or switch
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
+   if(isset($_REQUEST['updateData']) == true ) :  
+        
+     $friend_name    = $_REQUEST['friend_name'];
+     $friend_mobile  = $_REQUEST['friend_mobile'];
+     $friend_email   = $_REQUEST['friend_email'];
+        
+     $this->vanilla->wine_multi_server(new mysqli('localhost','root','','multiserver'), $this->vanilla::PUT, [ 'query' => [
+            
+     'mixed' => [
+             
+        "UPDATE crud 
+            SET `multi_name`   = '$friend_name', 
+                `multi_mobile` = '$friend_mobile', 
+                `multi_email`  = '$friend_email' 
+            
+          WHERE id = ".$_REQUEST['friend_id'] 
+             
+      ] 
+     ],'put_request' => function( $do_update ) { if( $do_update ) {
+  
+      $_SESSION['update'] = 'Succesfully Friend Updated !';
+    
+      header("location: vanilla-crud-multi.php?update-succesfully");   
+          
+     }      
+    
+  } , 'debug' => false ] );
+
+  endif;
+```
+```PHP
+  /**
+   * Defined: Incase of Read Multiple DB or switch
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/
+   if( isset($_REQUEST['delete']) == true ) :
+   
+     $deleted_friend   = $_REQUEST['delete'];
+         
+     $this->vanilla->wine_multi_server(new mysqli('localhost','root','','multiserver'), $this->vanilla::DELETE, [ 'query' => [
+            
+       'mixed' => [" DELETE  FROM crud  WHERE id  = ". $deleted_friend ] 
+
+     ],'delete_request' => function( $do_update ) { if( $do_update ) {
+     
+     $_SESSION['update'] = 'Succesfully Friend Deleted !';
+       
+     header("location: vanilla-crud-multi.php?delete-succesfully");   
+             
+    }      
+       
+  } , 'debug' => false ] );
+
+endif;  
+```
 ```php
 // Query incase of mixed 
 $query = [ 'mixed' => [" DELETE FROM `tbl_name` WHERE `col_id` = 179; "] ] 
