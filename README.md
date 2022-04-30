@@ -200,7 +200,7 @@ $wine_db->close();
    **/ 
   if(isset($_REQUEST['insertData']) == true ) {
 
-     if( $multiC = $this->vanilla->wine_multi_server( new mysqli('localhost','root','','multiserver'), $this->vanilla::MAKE, ['query' => [ 
+     if( $wine_create = $this->vanilla->wine_multi_server( new mysqli('localhost','root','','multiserver'), $this->vanilla::MAKE, ['query' => [ 
         
          'mixed' => [' INSERT INTO crud ( multi_name , multi_mobile , multi_email ) VALUES ( ?,?,? ); ']
                   
@@ -212,7 +212,7 @@ $wine_db->close();
               
          ), 'debug' => false ] ) ) {
           
-          $_SESSION['create'] = "Last_id : " . $multiC . " Added new record! ";
+          $_SESSION['create'] = "Last_id : " . $wine_create . " Added new record! ";
                 
           header("location: vanilla-crud-multi.php?create-succesfully"); 
        } 
