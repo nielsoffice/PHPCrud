@@ -192,8 +192,12 @@ $wine_db->close();
     }
 ```
 ```PHP
- Defined : 
- 
+  /**
+   * Defined : multi server or switch to databases
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
  wine_multi_server( object $db , vanilla|string $flag, array $method = [] );
   
  // Incase of Create 
