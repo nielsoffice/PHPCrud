@@ -233,7 +233,7 @@ $wine_db->close();
 ```
 ```PHP
   /**
-   * Defined: Incase of Read Multiple DB or switch
+   * Defined: Incase of edit/fetch Multiple DB or switch
    * @since wine v1.3.1.1
    * @since vanilla v1.3.0.0
    * @since 04.30.2022
@@ -263,7 +263,7 @@ $wine_db->close();
 ```
 ```PHP
   /**
-   * Defined: Incase of Read Multiple DB or switch
+   * Defined: Incase of Update Multiple DB or switch
    * @since wine v1.3.1.1
    * @since vanilla v1.3.0.0
    * @since 04.30.2022
@@ -300,7 +300,7 @@ $wine_db->close();
 ```
 ```PHP
   /**
-   * Defined: Incase of Read Multiple DB or switch
+   * Defined: Incase of Delete Multiple DB or switch
    * @since wine v1.3.1.1
    * @since vanilla v1.3.0.0
    * @since 04.30.2022
