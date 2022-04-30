@@ -187,7 +187,7 @@ $wine_db->close();
  wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'put_request' => function() { ... }, debug => false ] );
  
  // Incase of Delete 
- wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'delete_request' => function() { ... }, debug => false ] );
+ wine_multi_server( object $db , Vanilla::DELETE, [ 'query' => [] , 'delete_request' => function() { ... }, debug => false ] );
  
 ```
 
