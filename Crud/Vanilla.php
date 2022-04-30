@@ -44,6 +44,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
  * @method wine_fetch();
  * @method wine_update();
  * @method wine_delete();
+ * @method wine_multi_server();
  * @method wine_extract();
  *
  */
@@ -115,6 +116,26 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
   
 /**
   * @var 
+  * @property FLAG Flag multi server identifier name
+  * Defined $query_wine_multi_server : table property string type
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private string $query_wine_multi_server;
+
+/**
+  * @var 
+  * @property Object DB identifier name
+  * Defined $server_wine_multi : object property type
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private object $server_wine_multi;
+      
+/**
+  * @var 
   * @property Create new data to database object
   * Defined initialize_update_data : table property string type
   * @since v1.2.0.9
@@ -166,6 +187,76 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
   * @since 02.28.2022
   **/
   private Const QUERY_CONDITION = 'condition'; 
+
+ /**
+  * @var 
+  * @property Initialized_query
+  * Defined initialize_query_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_QUERY = 'query';
+
+ /**
+  * @var 
+  * @property Initialized_values
+  * Defined initialize_values_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_VALUES = 'values';
+
+/**
+  * @var 
+  * @property Initialized_dataType
+  * Defined initialize_dataType_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_DATATYPE = 'dataType';
+
+/**
+  * @var 
+  * @property Initialized_debug
+  * Defined initialize_debug_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_DEBUG = 'debug';
+
+/**
+  * @var 
+  * @property Initialized_fetch_request
+  * Defined initialize_fetch_request_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_CALLABLE = 'fetch_request';
+
+/**
+  * @var 
+  * @property Initialized_put_request_request
+  * Defined initialize_put_request_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_PUT = 'put_request';
+
+/**
+  * @var 
+  * @property Initialized_delete_request_request
+  * Defined initialize_delete_request_data : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private Const MULTI_SERVER_DEL = 'delete_request';
 
   /**
    * Defined: CRUD Request   [ CREATE ] [ READ ] [ UPDATE ] [ DELETE ]
@@ -643,7 +734,248 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
     return implode( $separator = '', $extracting );
   }
 
+    /**
+     * @var|@property   : $multi_server
+     * @var|@property   : $methods
+     * @since 1.1.0.0 supprt PHPWine v1.2.0.9
+     * @since wine >=+ v1.3.1.1 
+     * @since 04.29.2022
+     **/
+    public function wine_multi_server( object $multi_server = null, vanilla|string $flag = null, array $method = [] )  {
+
+      /**
+      * @param BAD_REQUEST incase of foo request !
+      * @since 1.0.0.0 supprt PHPWine v1.2.0.9
+      * @since 04.29.2022
+      **/
+     print ( !isset( $flag ) ) ?  $this->wine_crud_error_handler('Require a valid Argument #FLAG : [ Vanilla::MAKE ] | [ Vanilla::FETCH ] | [ Vanilla::PUT ] | [ Vanilla::DELETE ]'
+       . '<br />' 
+       . '<br/>$useWine  = NEW Vanilla( Vanill::MAKE , ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ); '
+       ) : '';
+      /**
+      * @param set object db connection multi switcher
+      **/
+      $this->server_wine_multi = $multi_server;
+
+      /**
+      * @param set check if the flag is create ??
+      **/
+     if( isset($flag) ) : if( $flag === self::MAKE) {
+         
+      /**
+      * @param set checkif mandatory key are exist [ query | datatype | values | debug ]
+      **/
+        if( $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method)  && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DATATYPE,$method) &&
+            $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_VALUES,$method) && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)) {
+
+            /**
+            * @param set check if that is true ?? then validate !
+            **/  
+            if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method ) ) {
+              if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY]) ) {
+
+                /**
+                 * @param set check if extract query array into string !
+                **/ 
+                 $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+
+                /**
+                 * @param set check if  debug is set and true
+                 * then process debug output 
+                **/ 
+                 if( $method[SELF::MULTI_SERVER_DEBUG] ) {
+
+                  $this->wine_crud_error_handler( (array) $method[SELF::MULTI_SERVER_VALUES]  );
+                  $this->wine_crud_error_handler( (string) $this->query_wine_multi_server  );
+                  exit();
+
+                }
+        
+                /**
+                 * @param set insert data to database or multi server
+                **/ 
+                 $stmt = $this->server_wine_multi->prepare( $this->query_wine_multi_server  );
+                 $this->bind_data_type_params( $stmt, $method[SELF::MULTI_SERVER_DATATYPE], $method[SELF::MULTI_SERVER_VALUES] );
+        
+                /**
+                 * @param set return last id
+                **/ 
+                 $stmt->execute();
+                 $request_data_id = $stmt->insert_id;
+                 return $request_data_id;
+          
+              }
+            }
+             
+        } else {
+       
+          /**
+           * @param set if foo request return error handler! 
+          **/ 
+           ErrorHandler::wine_multi_server_create();
+      
+        }
+     } 
+     
+     /**
+      * @param set if flag is equal to read ?? 
+     **/ 
+      elseif( $flag === self::FETCH  ) {
+
+      if( 
+
+       /**
+       * @param set checkif mandatory key are exist [ query | callback | debug ]
+       **/
+          $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
+       && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_CALLABLE,$method) 
+       && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+       
+      ) {
+
+       /**
+        * @param set check if that is true ?? then validate !
+       **/ 
+      if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
+         if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
+
+            /**
+             * @param set check if extract query array into string !
+            **/ 
+            $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+
+             /**
+             * @param set process data display through foreach loop and exlpode using wine_extract() method !
+             **/ 
+             return $this->debug_true_process( 
+             
+             $this->server_wine_multi, // fresh multi db object 
+             $this->query_wine_multi_server, // imploded or extracted query from mixed !
+             
+             $method[SELF::MULTI_SERVER_CALLABLE], // execute callable function !
+             $method[SELF::MULTI_SERVER_DEBUG],  //  set to TRUE to enable dubug query 
+             
+            'fetch' );  //  end of do process fetch !
+        }
+      }
+    } else {
+       
+      /**
+       * @param set if foo request return error handler! 
+      **/ 
+       ErrorHandler::wine_multi_server_create();
+  
+    }
+
+  } 
+  
   /**
+  * @param set if flag is equal to update ?? 
+  **/ 
+  elseif( $flag === self::PUT ) { 
+    
+    if( 
+        
+       /**
+       * @param set checkif mandatory key are exist [ query | callback | debug ]
+       **/
+      $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
+   && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_PUT,$method) 
+   && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+   
+    ) {
+
+    /**
+     * @param set check if that is true ?? then validate !
+     **/ 
+    if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
+      if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
+
+        /**
+        * @param set check if extract query array into string !
+        **/ 
+         $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+
+          /**
+           * @param set process data display through foreach loop and exlpode using wine_extract() method !
+          **/
+          return $this->debug_true_process( 
+          
+            $this->server_wine_multi, // fresh multi db object 
+            $this->query_wine_multi_server, // imploded or extracted query from mixed !
+            
+            $method[SELF::MULTI_SERVER_PUT], // execute callable function !
+            $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
+          
+         'make_update_delete' );  //  end of do process update !
+      }
+     }
+   } else {
+       
+    /**
+     * @param set if foo request return error handler! 
+    **/ 
+     ErrorHandler::wine_multi_server_create();
+
+  }
+ } 
+  
+  /**
+  * @param set if flag is equal to delete ?? 
+  **/ 
+  elseif( $flag === self::DELETE ) {
+
+    if( 
+
+      /**
+      * @param set checkif mandatory key are exist [ query | callback | debug ]
+      **/
+      $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
+   && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEL,$method) 
+   && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+   
+    ) {
+
+    /**
+     * @param set check if that is true ?? then validate !
+     **/ 
+    if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
+      if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
+
+          /**
+           * @param set process data display through foreach loop and exlpode using wine_extract() method !
+          **/
+         $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+
+          /**
+           * @param set process data display through foreach loop and exlpode using wine_extract() method !
+          **/
+          return $this->debug_true_process( 
+          
+            $this->server_wine_multi, // fresh multi db object
+            $this->query_wine_multi_server, // imploded or extracted query from mixed !
+            
+            $method[SELF::MULTI_SERVER_DEL], // execute callable function !
+            $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
+          
+         'make_update_delete' ); //  end of do process delete !
+      }
+    }
+   } else {
+       
+    /**
+     * @param set if foo request return error handler! 
+    **/ 
+     ErrorHandler::wine_multi_server_create();
+
+  }
+ }
+    
+  endif;
+        
+}
+    
+ /**
    * @var|@property   : $server
    * @var|@property   : $db_table
    * @var|@property   : $query
@@ -691,7 +1023,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
            * @param return if the process would be a Read [ FETCH ]
           **/  
           case 'fetch':
-           return (array)(CRUDWine::wine_request_call_back_fetch( $MySQLi , $this->wine_fetch, $callback, $debug));
+           return (array)(CRUDWine::wine_request_call_back_fetch( $MySQLi , $wine_query, $callback, $debug));
            break;
           
           /**
@@ -706,7 +1038,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
     
         endif;
    }
-   
+
  }
 
 /**
