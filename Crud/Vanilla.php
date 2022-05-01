@@ -332,7 +332,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
      /**
      * @param CREATE incase of Insert data to database
      * @since 1.0.0.0 supprt PHPWine v1.2.0.9
-     * @since 02.28.2022
+     * @since 02.28.2022 
      **/
      case SELF::MAKE :
       return $this->do_make( $this->requestConnection(), $db_table, $query , $callback , $debug );
@@ -344,7 +344,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
      * @since 02.28.2022
      **/
       case SELF::FETCH :
-      return $this->do_fetch( $this->requestConnection(), $db_table, $query , $callback , $debug );
+      return $this->do_fetch( , $db_table, $query , $callback , $debug );
       break;
 
      /**
