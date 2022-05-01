@@ -337,7 +337,6 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
     
   }
 
-
     /**
    * @var|@property   : $api_wine_multi_server
    * @var|@property   : $methods
@@ -401,7 +400,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         * @since 01.04.2022
         **/
         case 'api_wine_makes' :
-         return $this->debug_true_process( $multi_server, $wine_api_request['query'] , $callback , $wine_api_request['debug'] , '' );
+         return $this->do_make( $multi_server, $wine_api_request['query'] , $callback , $wine_api_request['debug']);
          break;
 
         /**
