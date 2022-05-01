@@ -162,6 +162,34 @@ $useWine = new Vanilla( Vanilla::DELETE, '', [
 
 $wine_db->close();
 ```
+```PHP
+  /**
+   * Defined : multi server or switch to databases
+   * @since wine v1.3.1.1
+   * @since vanilla v1.3.0.0
+   * @since 04.30.2022
+   **/ 
+ wine_multi_server( object $db , vanilla|string $flag, array $method = [] );
+  
+ // Incase of Create 
+ wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', 'values' => [] debug => false ] );
+ 
+ // Incase get inserted last id 
+ $wine_multi_db = wine_multi_server( object $db , Vanilla::MAKE, [ 'query' => [] , 'dataType' => '', 'values' => [] debug => false ] );
+  
+ echo $wine_multi_db ?? "Sucessfull inserted last ID ".$wine_multi_db ;
+   
+   
+ // Incase of Read 
+ wine_multi_server( object $db , Vanilla::FETCH, [ 'query' => [] , 'fetch_request' => function() { ... }, debug => false ] );
+ 
+ // Incase of Update 
+ wine_multi_server( object $db , Vanilla::PUT, [ 'query' => [] , 'put_request' => function() { ... }, debug => false ] );
+ 
+ // Incase of Delete 
+ wine_multi_server( object $db , Vanilla::DELETE, [ 'query' => [] , 'delete_request' => function() { ... }, debug => false ] );
+ 
+```
 
 ```PHP
   /**
@@ -172,7 +200,7 @@ $wine_db->close();
    **/ 
   if(isset($_REQUEST['insertData']) == true ) {
 
-     if( $multiC = $this->vanilla->wine_multi_server( new mysqli('localhost','root','','multiserver'), $this->vanilla::MAKE, ['query' => [ 
+     if( $wine_create = $this->vanilla->wine_multi_server( new mysqli('localhost','root','','multiserver'), $this->vanilla::MAKE, ['query' => [ 
         
          'mixed' => [' INSERT INTO crud ( multi_name , multi_mobile , multi_email ) VALUES ( ?,?,? ); ']
                   
@@ -184,7 +212,7 @@ $wine_db->close();
               
          ), 'debug' => false ] ) ) {
           
-          $_SESSION['create'] = "Last_id : " . $multiC . " Added new record! ";
+          $_SESSION['create'] = "Last_id : " . $wine_create . " Added new record! ";
                 
           header("location: vanilla-crud-multi.php?create-succesfully"); 
        } 
@@ -228,12 +256,13 @@ $wine_db->close();
               
           }, 'debug' => false ] );
           
-          echo $this->init->wine_extract( $this->read);
+          // execute
+          echo $this->init->wine_extract($this->read);
 
 ```
 ```PHP
   /**
-   * Defined: Incase of Read Multiple DB or switch
+   * Defined: Incase of edit/fetch Multiple DB or switch
    * @since wine v1.3.1.1
    * @since vanilla v1.3.0.0
    * @since 04.30.2022
@@ -263,7 +292,7 @@ $wine_db->close();
 ```
 ```PHP
   /**
-   * Defined: Incase of Read Multiple DB or switch
+   * Defined: Incase of Update Multiple DB or switch
    * @since wine v1.3.1.1
    * @since vanilla v1.3.0.0
    * @since 04.30.2022
@@ -300,7 +329,7 @@ $wine_db->close();
 ```
 ```PHP
   /**
-   * Defined: Incase of Read Multiple DB or switch
+   * Defined: Incase of Delete Multiple DB or switch
    * @since wine v1.3.1.1
    * @since vanilla v1.3.0.0
    * @since 04.30.2022
@@ -315,7 +344,7 @@ $wine_db->close();
 
      ],'delete_request' => function( $do_update ) { if( $do_update ) {
      
-     $_SESSION['update'] = 'Succesfully Friend Deleted !';
+     $_SESSION['delete'] = 'Succesfully Friend Deleted !';
        
      header("location: vanilla-crud-multi.php?delete-succesfully");   
              
