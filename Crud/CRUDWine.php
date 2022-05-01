@@ -139,7 +139,7 @@ class CRUDWine extends  DBWine {
    * @since v1.2.0.9
    * @since 02.28.2022
    **/                                
-    protected function wine_request_call_back( mixed $server = null , string $query = null , mixed $callback = null ) : mixed {
+    protected function wine_request_call_back( object $server = null , string $query = null , mixed $callback = null ) : mixed {
      
       # do insert multiple value from arrays of data
       if ( $server->multi_query( $query ) === TRUE)  : 
@@ -173,7 +173,7 @@ class CRUDWine extends  DBWine {
    * @since v1.2.0.9
    * @since 02.28.2022
    **/
-    protected function wine_request_call_back_fetch( mixed $server = null , string $query = null , mixed $callback = null ) : array {
+    protected function wine_request_call_back_fetch( object $server = null , string $query = null , mixed $callback = null ) : array {
       
       # Initialized emoty arrays of data  
       $wine_array_of_data = array();
