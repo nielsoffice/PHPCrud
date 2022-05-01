@@ -26,7 +26,7 @@ Abstract Class DBWine {
    # HOST PASSWORD
    const DB_PASSWORD = '';
    # DATBASE NAME
-   const DB_NAME     = 'phpcrud';
+   const DB_NAME     = '';
      
  /**
   * @var 
