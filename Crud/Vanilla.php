@@ -133,7 +133,17 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
   * @since 30.04.2022
   **/
   private object $server_wine_multi;
-      
+     
+/**
+  * @var 
+  * @property Callable callback identifier name
+  * Defined $callback : object property type
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 30.04.2022
+  **/
+  private bool $callback = true;
+
 /**
   * @var 
   * @property Create new data to database object
@@ -258,6 +268,46 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
   **/
   private Const MULTI_SERVER_DEL = 'delete_request';
 
+/**
+  * @var 
+  * @property Initialized_api_wine_makes_request
+  * Defined api_wine_makes : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 01.05.2022
+  **/
+  private Const API_MAKES_WINE = 'api_wine_makes';
+
+/**
+  * @var 
+  * @property Initialized_api_wine_fetch
+  * Defined api_wine_makes : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 01.05.2022
+  **/
+  private Const API_FETCH_WINE = 'api_wine_fetch';
+
+/**
+  * @var 
+  * @property Initialized_api_wine_put
+  * Defined api_wine_makes : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 01.05.2022
+  **/
+  private Const API_PUT_WINE = 'api_wine_put';
+
+/**
+  * @var 
+  * @property Initialized_api_wine_delete
+  * Defined api_wine_makes : 
+  * @since wine v1.3.1.1
+  * @since Vanilla 1.3.0.0
+  * @since 01.05.2022
+  **/
+  private Const API_DELETE_WINE = 'api_wine_delete';
+
   /**
    * Defined: CRUD Request   [ CREATE ] [ READ ] [ UPDATE ] [ DELETE ]
    * @var|@property   : $crud
@@ -335,9 +385,9 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
 
     $this->db_wine = $this->requestConnection();
     
-  }
-
-    /**
+  }  
+  
+   /**
    * @var|@property   : $api_wine_multi_server
    * @var|@property   : $methods
    * @since 1.1.0.0 supprt PHPWine v1.2.0.9
@@ -347,46 +397,42 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
   public function api_wine_multi_server( object $multi_server = null, array|string $method = [], mixed $callback = null )  {
 
       // check if the nethod is callable 
-      $validate_request_api_vanilla_wine = function ( callable|string $data ) : mixed
-      {
-        if (is_callable($data)) {  return $data(true);
-        } else { return (array)  $data;
-        }
-
+      $validate_request_api_vanilla_wine = function ( callable|string $data ) : mixed {
+        if (is_callable($data)) {  return $data($this->callback); } 
+         else { return (array)  $data; }
       };
 
-     if( array_key_exists('api_wine_makes', $method)) 
+     if( $this->wine_check_arrays_key_mandatory(SELF::API_MAKES_WINE, $method)) 
      {
-      
       /**
       * @param set filter if api_wine_makes exist ?? then validate !
       **/  
-      $api_wine_multi_server_request = 'api_wine_makes'; 
-      $wine_api_request =  $validate_request_api_vanilla_wine($method['api_wine_makes']);
+      $api_wine_multi_server_request = SELF::API_MAKES_WINE; 
+      $wine_api_request =  $validate_request_api_vanilla_wine($method[SELF::API_MAKES_WINE]);
 
-     } elseif(array_key_exists('api_wine_fetch', $method)) {
+     } elseif($this->wine_check_arrays_key_mandatory(SELF::API_FETCH_WINE, $method)) {
 
       /**
       * @param set filter if api_wine_fetch exist ?? then validate !
       **/  
-      $api_wine_multi_server_request = 'api_wine_fetch';
-      $wine_api_request = $validate_request_api_vanilla_wine($method['api_wine_fetch']);
+      $api_wine_multi_server_request = SELF::API_FETCH_WINE;
+      $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_FETCH_WINE]);
 
-     } elseif(array_key_exists('api_wine_put', $method)) {
+     } elseif($this->wine_check_arrays_key_mandatory(SELF::API_PUT_WINE, $method)) {
 
       /**
       * @param set filter if api_wine_put exist ?? then validate !
       **/  
-      $api_wine_multi_server_request = 'api_wine_put';
-      $wine_api_request = $validate_request_api_vanilla_wine($method['api_wine_put']);
+      $api_wine_multi_server_request = SELF::API_PUT_WINE;
+      $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_PUT_WINE]);
 
-     } elseif(array_key_exists('api_wine_delete', $method)) {
+     } elseif($this->wine_check_arrays_key_mandatory(SELF::API_DELETE_WINE, $method)) {
 
       /**
       * @param set filter if api_wine_delete exist ?? then validate !
       **/  
-      $api_wine_multi_server_request = 'api_wine_delete';
-      $wine_api_request = $validate_request_api_vanilla_wine($method['api_wine_delete']);
+      $api_wine_multi_server_request = SELF::API_DELETE_WINE;
+      $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_DELETE_WINE]);
 
      }
       
@@ -399,8 +445,13 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         * @since Vanilla 1.3.0.0 support PHPWine v1.3.1.1
         * @since 01.04.2022
         **/
-        case 'api_wine_makes' :
-         return $this->do_make( $multi_server, $wine_api_request['query'] , $callback , $wine_api_request['debug']);
+        case SELF::API_MAKES_WINE :
+         return $this->do_make( $multi_server, null, $wine_api_request[SELF::MULTI_SERVER_QUERY], 
+                
+         $callback, 
+         $wine_api_request[SELF::MULTI_SERVER_DEBUG]
+        
+         );
          break;
 
         /**
@@ -408,8 +459,13 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         * @since Vanilla 1.3.0.0 support PHPWine v1.3.1.1
         * @since 01.04.2022
         **/
-        case 'api_wine_fetch' :
-          return $this->do_fetch( $multi_server, null, $wine_api_request['query'], $callback , $wine_api_request['debug'] );
+        case SELF::API_FETCH_WINE :
+          return $this->do_fetch( $multi_server, null, $wine_api_request[SELF::MULTI_SERVER_QUERY], 
+          
+          $callback, 
+          $wine_api_request[SELF::MULTI_SERVER_DEBUG]
+         
+          );
           break;
    
         /**
@@ -417,8 +473,13 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         * @since Vanilla 1.3.0.0 support PHPWine v1.3.1.1
         * @since 01.04.2022
         **/
-        case 'api_wine_put' :
-          return $this->do_update( $multi_server, null, $wine_api_request['query'], $callback , $wine_api_request['debug'] );
+        case SELF::API_PUT_WINE :
+          return $this->do_update( $multi_server, null, $wine_api_request[SELF::MULTI_SERVER_QUERY], 
+          
+           $callback, 
+           $wine_api_request[SELF::MULTI_SERVER_DEBUG] 
+          
+          );
           break;
 
         /**
@@ -426,10 +487,14 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         * @since Vanilla 1.3.0.0 support PHPWine v1.3.1.1
         * @since 01.04.2022
         **/
-        case 'api_wine_delete' :
-          return $this->do_delete( $multi_server, null, $wine_api_request['query'], $callback , $wine_api_request['debug'] );
+        case SELF::API_DELETE_WINE :
+          return $this->do_delete( $multi_server, null, $wine_api_request[SELF::MULTI_SERVER_QUERY], 
+          
+          $callback, 
+          $wine_api_request[SELF::MULTI_SERVER_DEBUG] 
+        
+          );
           break;
-
 
         /**
         * @param BAD_REQUEST incase of foo request !
