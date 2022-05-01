@@ -75,6 +75,11 @@ trait ErrorHandler {
   
       # DATBASE NAME
       const DB_NAME     = '".$DB_NAME."' "    . SELF::checkConst( $DB_NAME ,     " <i> [ ! cannot be empty ] </i>" ) . " 
+
+      <hr>
+      <pre><i><b>  Primary Issue: <b><i> </pre>
+      <pre><i> Check your database credentials: [ DB_HOST , DB_HOST , DB_PASSWORD , DB_NAME ] </i></pre>
+      <pre><i> Check your tables and column properties must be match on your databases: example inserting data: [ 'mixed' => [' INSERT INTO crud (  multi_name , multi_mobile , multi_email  )  VALUES  ( ?,?,? ); '] ] </i></pre>
   
     ";
 
@@ -101,7 +106,7 @@ trait ErrorHandler {
       
     ] , "'.$callback.'" );
      
-    <i> // *Required call back function</i>
+    <i> // *Required call back function </i>
     function '.$callback.'( $'.$callback.' ) { if( $'.$callback.' ) { ... } }
   
     <hr />
@@ -110,12 +115,127 @@ trait ErrorHandler {
 
   } 
 
+ /**
+  * @var 
+  * @property String 
+  * Defined Error Handler check constant if isset !
+  * @since v1.0.0.0
+  * @since 03.03.2022
+  **/
   private static function checkConst( $DBWineDB_HOST, $ERR_MSG )
   {
     return ( empty( $DBWineDB_HOST) ) ? $ERR_MSG : null ; 
   }
   
- 
+/**
+ * Defined : CREATE incase of create data to database
+ * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+ * @since 01.05.2022
+ **/
+ public static function wine_multi_server_create() : void {
 
+  print 'wine_multi_server : required a valid argument for [ Create/Make ] :
+    <br /> <pre>["query"=>" ", "dataType"=>" ", "values"=>" ",  "debug"=>false]</pre>
+    <i><pre>Expect: wine_multi_server( $db, (new vanilla)::MAKE, ["query"=>" ", "dataType"=>" ", "values"=>" ",  "debug"=>false])
+    
+    <hr />
+    $multiServer->wine_multi_server(  $multi_server, (new vanilla)::MAKE, [ "query" => [ 
+       
+    "mixed" => [" INSERT INTO crud ( multi_name , multi_mobile , multi_email  )  VALUES  ( ?,?,? ); "]
+                         
+    ],"dataType" => "sss", "values"=> array(
+                           
+    "multi_name_value",
+    "multi_mobile_value",
+    "multi_email_value"
+                       
+   ),"debug"=>false ]);
+                       
+   </pre></i>
+ 
+  ';
+
+ }
+  
+/**
+ * Defined : READ incase of fetch data to database
+ * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+ * @since 01.05.2022
+ **/
+ public static function wine_multi_server_read() : void {
+
+  print 'wine_multi_server : required a valid argument for [ Read/Fetch ] :
+
+    <br /> <pre>["query"=>" ", "fetch_request"=>" ", "debug"=>false]</pre>
+    <i><pre>Expect: wine_multi_server( $db, (new vanilla)::FETCH, [ \'query\' => [ \'mixed\' =>  [ " SQL goes here " ] ], \'fetch_request\' => function()  { ... }, \'debug\' => false ])
+    
+    <hr />
+    $multiServer->wine_multi_server(  $multi_server, (new vanilla)::FETCH, [ \'query\' =>  
+    
+      [ \'mixed\' =>  [ " SQL goes here " ] 
+    
+    ], \'fetch_request\' => function()  { ... } , 
+    
+    \'debug\' => false ]);    
+                       
+   </pre></i>
+ 
+  ';
+
+ }
+  
+/**
+ * Defined : UPDATE incase of update data to database
+ * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+ * @since 01.05.2022
+ **/
+ public static function wine_multi_server_update() : void {
+
+  print 'wine_multi_server : required a valid argument for [ Update/Put ] :
+
+    <br /> <pre>["query"=>" ", "put_request"=>" ", "debug"=>false]</pre>
+    <i><pre>Expect: wine_multi_server( $db, (new vanilla)::PUT, [ \'query\' => [ \'mixed\' =>  [ " SQL goes here " ] ], \'put_request\' => function()  { ... }, \'debug\' => false ])
+    
+    <hr />
+    $multiServer->wine_multi_server(  $multi_server, (new vanilla)::PUT, [ \'query\' =>  
+    
+      [ \'mixed\' =>  [ " SQL goes here " ] 
+    
+    ], \'put_request\' => function()  { ... } , 
+    
+    \'debug\' => false ]);    
+                       
+   </pre></i>
+ 
+  ';
+
+ }
+
+/**
+ * Defined : DELETE incase of delete data to database
+ * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+ * @since 01.05.2022
+ **/
+ public static function wine_multi_server_delete() : void {
+
+  print 'wine_multi_server : required a valid argument for [ Delete ] :
+
+    <br /> <pre>["query"=>" ", "delete_request"=>" ", "debug"=>false]</pre>
+    <i><pre>Expect: wine_multi_server( $db, (new vanilla)::DELETE, [ \'query\' => [ \'mixed\' =>  [ " SQL goes here " ] ], \'delete_request\' => function()  { ... }, \'debug\' => false ])
+    
+    <hr />
+    $multiServer->wine_multi_server(  $multi_server, (new vanilla)::DELETE, [ \'query\' =>  
+    
+      [ \'mixed\' =>  [ " SQL goes here " ] 
+    
+    ], \'delete_request\' => function()  { ... } , 
+    
+    \'debug\' => false ]);    
+                       
+   </pre></i>
+ 
+  ';
+
+ }
 
 }

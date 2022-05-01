@@ -336,6 +336,273 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
     $this->db_wine = $this->requestConnection();
     
   }
+  
+  /**
+   * @var|@property   : $multi_server
+   * @var|@property   : $methods
+   * @since 1.1.0.0 supprt PHPWine v1.2.0.9
+   * @since wine >=+ v1.3.1.1 
+   * @since 04.29.2022
+   **/
+    public function wine_multi_server( object $multi_server = null, vanilla|string $flag = null, array $method = [] )  {
+
+      /**
+      * @param set object db connection multi switcher
+      **/
+      $this->server_wine_multi = $multi_server;
+
+      /**
+      * @param set check if the flag is create ??
+      **/
+      if(!is_null($flag) ) {
+
+        switch( $flag ) {
+
+        /**
+         * @param CREATE incase of Insert data to database
+         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+         * @since 01.05.2022
+         **/
+        case SELF::MAKE :
+         /**
+          * @param set checkif mandatory key are exist [ query | datatype | values | debug ]
+         **/
+           if(
+              
+              $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method)  
+           && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DATATYPE,$method) 
+           && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_VALUES,$method) 
+           && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+           
+            ) {
+
+            /**
+            * @param set check if that is true ?? then validate !
+            **/  
+            if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method ) ) {
+              if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY]) ) {
+
+                /**
+                 * @param set check if extract query array into string !
+                **/ 
+                $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+
+                /**
+                 * @param set check if  debug is set and true then process debug output 
+                **/ 
+                if( $method[SELF::MULTI_SERVER_DEBUG] ) {
+
+                  $this->wine_crud_error_handler( (array) $method[SELF::MULTI_SERVER_VALUES]  );
+                  $this->wine_crud_error_handler( (string) $this->query_wine_multi_server  );
+                  exit();
+
+                }
+        
+                /**
+                 * @param set insert data to database or multi server
+                **/ 
+                $stmt = $this->server_wine_multi->prepare( $this->query_wine_multi_server  );
+                $this->bind_data_type_params( $stmt, $method[SELF::MULTI_SERVER_DATATYPE], $method[SELF::MULTI_SERVER_VALUES] );
+        
+                /**
+                 * @param set return last id
+                **/ 
+                $stmt->execute();
+                $request_data_id = $stmt->insert_id;
+                return $request_data_id;
+          
+              }
+            }
+            
+        } else {
+      
+          /**
+           * @param set if foo request return error handler! 
+          **/ 
+          ErrorHandler::wine_multi_server_create();
+      
+        }
+          break;
+
+        /**
+         * @param FETCH incase of read data from database
+         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+         * @since 01.05.2022
+         **/
+        case SELF::FETCH : // if flag is equal to read ?? 
+
+          if( 
+
+            /**
+            * @param set checkif mandatory key are exist [ query | callback | debug ]
+            **/
+               $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
+            && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_CALLABLE,$method) 
+            && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+            
+           ) {
+     
+            /**
+             * @param set check if that is true ?? then validate !
+            **/ 
+           if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
+              if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
+     
+                 /**
+                  * @param set check if extract query array into string !
+                 **/ 
+                 $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+     
+                  /**
+                  * @param set process data display through foreach loop and exlpode using wine_extract() method !
+                  **/ 
+                  return $this->debug_true_process( 
+                  
+                  $this->server_wine_multi, // fresh multi db object 
+                  $this->query_wine_multi_server, // imploded or extracted query from mixed !
+                  
+                  $method[SELF::MULTI_SERVER_CALLABLE], // execute callable function !
+                  $method[SELF::MULTI_SERVER_DEBUG],  //  set to TRUE to enable dubug query 
+                  
+                 'fetch' );  //  end of do process fetch !
+             }
+           }
+         } else {
+            
+           /**
+            * @param set if foo request return error handler! 
+           **/ 
+            ErrorHandler::wine_multi_server_read();
+       
+         }
+
+          break; 
+
+        /**
+         * @param UPDATE incase of put data to database
+         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+         * @since 01.05.2022
+         **/
+        case SELF::PUT : // if flag is equal to update ?? 
+
+          if( 
+        
+            /**
+            * @param set checkif mandatory key are exist [ query | callback | debug ]
+            **/
+           $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
+        && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_PUT,$method) 
+        && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+        
+         ) {
+     
+         /**
+          * @param set check if that is true ?? then validate !
+          **/ 
+         if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
+           if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
+     
+             /**
+             * @param set check if extract query array into string !
+             **/ 
+              $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+     
+               /**
+                * @param set process data display through foreach loop and exlpode using wine_extract() method !
+               **/
+               return $this->debug_true_process( 
+               
+                 $this->server_wine_multi, // fresh multi db object 
+                 $this->query_wine_multi_server, // imploded or extracted query from mixed !
+                 
+                 $method[SELF::MULTI_SERVER_PUT], // execute callable function !
+                 $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
+               
+              'make_update_delete' );  //  end of do process update !
+           }
+          }
+        } else {
+            
+         /**
+          * @param set if foo request return error handler! 
+         **/ 
+          ErrorHandler::wine_multi_server_update();
+     
+       }
+
+          break; 
+
+        /**
+         * @param DELETE incase of delete data to database
+         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
+         * @since 01.05.2022
+         **/
+        case SELF::DELETE : // if flag is equal to delete ?? 
+
+          if( 
+
+            /**
+            * @param set checkif mandatory key are exist [ query | callback | debug ]
+            **/
+            $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
+         && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEL,$method) 
+         && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
+         
+          ) {
+      
+          /**
+           * @param set check if that is true ?? then validate !
+           **/ 
+          if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
+            if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
+      
+                /**
+                 * @param set process data display through foreach loop and exlpode using wine_extract() method !
+                **/
+               $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
+      
+                /**
+                 * @param set process data display through foreach loop and exlpode using wine_extract() method !
+                **/
+                return $this->debug_true_process( 
+                
+                  $this->server_wine_multi, // fresh multi db object
+                  $this->query_wine_multi_server, // imploded or extracted query from mixed !
+                  
+                  $method[SELF::MULTI_SERVER_DEL], // execute callable function !
+                  $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
+                
+               'make_update_delete' ); //  end of do process delete !
+            }
+          }
+         } else {
+             
+          /**
+           * @param set if foo request return error handler! 
+          **/ 
+           ErrorHandler::wine_multi_server_delete();
+      
+        }
+
+          break;
+
+          default:
+          /**
+            * @param BAD_REQUEST incase of foo request !
+            * @since 1.0.0.0 supprt PHPWine v1.2.0.9
+            * @since 04.29.2022
+            **/
+          print $this->wine_crud_error_handler('Require a valid Argument #FLAG : [ Vanilla::MAKE ] | [ Vanilla::FETCH ] | [ Vanilla::PUT ] | [ Vanilla::DELETE ]'
+          . '<br />' 
+          . '<br/>$useWine  = NEW Vanilla( Vanill::MAKE , ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ); '
+          );
+
+          break;
+
+        }
+    }
+        
+}
 
   /**
   * Defined request public connection 
@@ -733,276 +1000,6 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
   {
     return implode( $separator = '', $extracting );
   }
-
-    /**
-     * @var|@property   : $multi_server
-     * @var|@property   : $methods
-     * @since 1.1.0.0 supprt PHPWine v1.2.0.9
-     * @since wine >=+ v1.3.1.1 
-     * @since 04.29.2022
-     **/
-    public function wine_multi_server( object $multi_server = null, vanilla|string $flag = null, array $method = [] )  {
-
-
-      /**
-      * @param set object db connection multi switcher
-      **/
-      $this->server_wine_multi = $multi_server;
-
-      /**
-      * @param set check if the flag is create ??
-      **/
-      if(!is_null($flag) ) {
-
-        switch( $flag ) {
-
-        /**
-         * @param CREATE incase of Insert data to database
-         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
-         * @since 01.05.2022
-         **/
-        case SELF::MAKE :
-         /**
-          * @param set checkif mandatory key are exist [ query | datatype | values | debug ]
-         **/
-           if(
-              
-              $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method)  
-           && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DATATYPE,$method) 
-           && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_VALUES,$method) 
-           && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
-           
-            ) 
-           
-            {
-
-            /**
-            * @param set check if that is true ?? then validate !
-            **/  
-            if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method ) ) {
-              if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY]) ) {
-
-                /**
-                 * @param set check if extract query array into string !
-                **/ 
-                $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
-
-                /**
-                 * @param set check if  debug is set and true then process debug output 
-                **/ 
-                if( $method[SELF::MULTI_SERVER_DEBUG] ) {
-
-                  $this->wine_crud_error_handler( (array) $method[SELF::MULTI_SERVER_VALUES]  );
-                  $this->wine_crud_error_handler( (string) $this->query_wine_multi_server  );
-                  exit();
-
-                }
-        
-                /**
-                 * @param set insert data to database or multi server
-                **/ 
-                $stmt = $this->server_wine_multi->prepare( $this->query_wine_multi_server  );
-                $this->bind_data_type_params( $stmt, $method[SELF::MULTI_SERVER_DATATYPE], $method[SELF::MULTI_SERVER_VALUES] );
-        
-                /**
-                 * @param set return last id
-                **/ 
-                $stmt->execute();
-                $request_data_id = $stmt->insert_id;
-                return $request_data_id;
-          
-              }
-            }
-            
-        } else {
-      
-          /**
-           * @param set if foo request return error handler! 
-          **/ 
-          ErrorHandler::wine_multi_server_create();
-      
-        }
-          break;
-
-        /**
-         * @param CREATE incase of Insert data to database
-         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
-         * @since 01.05.2022
-         **/
-        case SELF::FETCH : // if flag is equal to read ?? 
-
-          if( 
-
-            /**
-            * @param set checkif mandatory key are exist [ query | callback | debug ]
-            **/
-               $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
-            && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_CALLABLE,$method) 
-            && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
-            
-           ) {
-     
-            /**
-             * @param set check if that is true ?? then validate !
-            **/ 
-           if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
-              if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
-     
-                 /**
-                  * @param set check if extract query array into string !
-                 **/ 
-                 $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
-     
-                  /**
-                  * @param set process data display through foreach loop and exlpode using wine_extract() method !
-                  **/ 
-                  return $this->debug_true_process( 
-                  
-                  $this->server_wine_multi, // fresh multi db object 
-                  $this->query_wine_multi_server, // imploded or extracted query from mixed !
-                  
-                  $method[SELF::MULTI_SERVER_CALLABLE], // execute callable function !
-                  $method[SELF::MULTI_SERVER_DEBUG],  //  set to TRUE to enable dubug query 
-                  
-                 'fetch' );  //  end of do process fetch !
-             }
-           }
-         } else {
-            
-           /**
-            * @param set if foo request return error handler! 
-           **/ 
-            ErrorHandler::wine_multi_server_create();
-       
-         }
-
-          break; 
-
-        /**
-         * @param CREATE incase of Insert data to database
-         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
-         * @since 01.05.2022
-         **/
-        case SELF::PUT : // if flag is equal to update ?? 
-
-          if( 
-        
-            /**
-            * @param set checkif mandatory key are exist [ query | callback | debug ]
-            **/
-           $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
-        && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_PUT,$method) 
-        && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
-        
-         ) {
-     
-         /**
-          * @param set check if that is true ?? then validate !
-          **/ 
-         if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
-           if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
-     
-             /**
-             * @param set check if extract query array into string !
-             **/ 
-              $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
-     
-               /**
-                * @param set process data display through foreach loop and exlpode using wine_extract() method !
-               **/
-               return $this->debug_true_process( 
-               
-                 $this->server_wine_multi, // fresh multi db object 
-                 $this->query_wine_multi_server, // imploded or extracted query from mixed !
-                 
-                 $method[SELF::MULTI_SERVER_PUT], // execute callable function !
-                 $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
-               
-              'make_update_delete' );  //  end of do process update !
-           }
-          }
-        } else {
-            
-         /**
-          * @param set if foo request return error handler! 
-         **/ 
-          ErrorHandler::wine_multi_server_create();
-     
-       }
-
-          break; 
-
-        /**
-         * @param CREATE incase of Insert data to database
-         * @since 1.3.0.0 supprt PHPWine v1.3.1.1
-         * @since 01.05.2022
-         **/
-        case SELF::DELETE : // if flag is equal to delete ?? 
-
-          if( 
-
-            /**
-            * @param set checkif mandatory key are exist [ query | callback | debug ]
-            **/
-            $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_QUERY,$method) 
-         && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEL,$method) 
-         && $this->wine_check_arrays_key_mandatory(SELF::MULTI_SERVER_DEBUG,$method)
-         
-          ) {
-      
-          /**
-           * @param set check if that is true ?? then validate !
-           **/ 
-          if( $this->wine_check_arrays_key_mandatory( SELF::MULTI_SERVER_QUERY,$method)) {
-            if( $this->wine_check_arrays_key_mandatory( SELF::FILTER_MIXED,$method[SELF::MULTI_SERVER_QUERY])) {
-      
-                /**
-                 * @param set process data display through foreach loop and exlpode using wine_extract() method !
-                **/
-               $this->query_wine_multi_server = $this->wine_extract($method[SELF::MULTI_SERVER_QUERY][SELF::FILTER_MIXED]);
-      
-                /**
-                 * @param set process data display through foreach loop and exlpode using wine_extract() method !
-                **/
-                return $this->debug_true_process( 
-                
-                  $this->server_wine_multi, // fresh multi db object
-                  $this->query_wine_multi_server, // imploded or extracted query from mixed !
-                  
-                  $method[SELF::MULTI_SERVER_DEL], // execute callable function !
-                  $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
-                
-               'make_update_delete' ); //  end of do process delete !
-            }
-          }
-         } else {
-             
-          /**
-           * @param set if foo request return error handler! 
-          **/ 
-           ErrorHandler::wine_multi_server_create();
-      
-        }
-
-          break;
-
-          default:
-          /**
-            * @param BAD_REQUEST incase of foo request !
-            * @since 1.0.0.0 supprt PHPWine v1.2.0.9
-            * @since 04.29.2022
-            **/
-          print $this->wine_crud_error_handler('Require a valid Argument #FLAG : [ Vanilla::MAKE ] | [ Vanilla::FETCH ] | [ Vanilla::PUT ] | [ Vanilla::DELETE ]'
-          . '<br />' 
-          . '<br/>$useWine  = NEW Vanilla( Vanill::MAKE , ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ); '
-          );
-
-          break;
-
-        }
-    }
-        
-}
     
  /**
    * @var|@property   : $server
