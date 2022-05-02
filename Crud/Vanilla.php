@@ -403,35 +403,42 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
          else { return (array)  $data; }
       };
 
-     if( $this->wine_check_arrays_key_mandatory(SELF::API_MAKES_WINE, $method)) 
-     {
       /**
       * @param set filter if api_wine_makes exist ?? then validate !
       **/  
+     if( $this->wine_check_arrays_key_mandatory(SELF::API_MAKES_WINE, $method)) 
+     {
+
       $api_wine_multi_server_request = SELF::API_MAKES_WINE; 
       $wine_api_request =  $validate_request_api_vanilla_wine($method[SELF::API_MAKES_WINE]);
 
-     } elseif($this->wine_check_arrays_key_mandatory(SELF::API_FETCH_WINE, $method)) {
-
+     } 
+     
       /**
       * @param set filter if api_wine_fetch exist ?? then validate !
-      **/  
+      **/ 
+      elseif($this->wine_check_arrays_key_mandatory(SELF::API_FETCH_WINE, $method)) {
+
       $api_wine_multi_server_request = SELF::API_FETCH_WINE;
       $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_FETCH_WINE]);
 
-     } elseif($this->wine_check_arrays_key_mandatory(SELF::API_PUT_WINE, $method)) {
-
-      /**
-      * @param set filter if api_wine_put exist ?? then validate !
-      **/  
+     } 
+    
+    /**
+     * @param set filter if api_wine_put exist ?? then validate !
+     **/     
+     elseif($this->wine_check_arrays_key_mandatory(SELF::API_PUT_WINE, $method)) {
+  
       $api_wine_multi_server_request = SELF::API_PUT_WINE;
       $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_PUT_WINE]);
 
-     } elseif($this->wine_check_arrays_key_mandatory(SELF::API_DELETE_WINE, $method)) {
-
-      /**
-      * @param set filter if api_wine_delete exist ?? then validate !
-      **/  
+     } 
+     
+    /**
+     * @param set filter if api_wine_delete exist ?? then validate !
+     **/
+     elseif($this->wine_check_arrays_key_mandatory(SELF::API_DELETE_WINE, $method)) {
+  
       $api_wine_multi_server_request = SELF::API_DELETE_WINE;
       $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_DELETE_WINE]);
 
