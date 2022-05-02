@@ -42,7 +42,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine;
  */ 
 
  
-class VANILLA_WINEDELETE Extends \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\Tags
+class VANILLA_UPDATE Extends \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\Tags
 {
 
     public function __construct() {
@@ -51,7 +51,7 @@ class VANILLA_WINEDELETE Extends \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Win
     
     }
     
-    static private function getElement() : void { require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . self::$file_name['VANILLA_WINEDELETE']); }
+    static private function getElement() : void { require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . self::$file_name['VANILLA_WINEUPDATE']); }
     
 }
     

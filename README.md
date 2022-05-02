@@ -37,11 +37,11 @@ use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
 // Installing function Vanilla since v1.3
 new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_API_WINE;
 new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINE;
-new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINECREATE;
-new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEFETCH;
-new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEUPDATE;
-new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEDELETE;
-new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEEXTRACT;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_CREATE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_FETCH;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_UPDATE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_DELETE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_EXTRACT;
 ```
 ```PHP
 # FLAG [ CRUD ] : (  Optional ) 
