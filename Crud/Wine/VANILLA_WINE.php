@@ -1,13 +1,13 @@
 <?php 
 
-namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Server_wine;
-
+namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine;
+    
 /**
-  * @copyright (c) 2021 PHPWine\VanillaFlavour v1.3.1.0 Cooked by nielsoffice 
+ * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.3.0.0 Cooked by nielsoffice 
  *
  * MIT License
  *
- * PHPWine\VanillaFlavour v1.3.1.0 free software: you can redistribute it and/or modify.
+ * PHPWine\VanillaFlavour v1.1.0.0 free software: you can redistribute it and/or modify.
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -26,8 +26,8 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Server_wine;
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  *
- * @category   PHPLibrary PHPWine\VanillaFlavour
- * @package    PHPHtml-Optimizer | CodeDesigner/Enhancer | Advance Form Builder | Handling Form Validation | Form Validation v2 | BASIC-Authentication | HtmlMinifier
+ * @category   PHPCrud Vanilla
+ * @package    PHPCrud Vanilla Plugin of PHP Wine extend optimizer to crud features
  *            
  *            
  * @author    Leinner Zednanref <nielsoffice.wordpress.php@gmail.com>
@@ -35,18 +35,25 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Server_wine;
  * @link      https://github.com/nielsofficeofficial/PHPWine
  * @link      https://github.com/nielsofficeofficial/PHPWine/blob/PHPWine_Vanilla_Flavour/README.md
  * @link      https://www.facebook.com/nielsofficeofficial
- * @version   v1.3.1.0
+ * @version   v1.1.0.0 support PHPWine v1.2.0.9
  * @since     04.13.2022
- *
- */
+ * 
+ * 
+ */ 
 
- class Tags { 
+ 
+class VANILLA_WINE Extends \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\Tags
+{
 
-    static Protected array $file_name = [
-        
-        'VANILLA_API_WINESERVER'  =>  'Api_wine_multi_server.php',
-        'VANILLA_WINESERVER'  =>  'Wine_multi_server.php'
+    public function __construct() {
+            
+       self::getElement();
+    
+    }
+    
+    static private function getElement() : void { require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . self::$file_name['VANILLA_WINESERVER']); }
+    
+}
+    
+    
 
-    ];
-
- }

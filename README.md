@@ -35,10 +35,10 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
 
 // installing : api_wine_multi_server();
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ServerWine\VANILLA_API_WINE;
+new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_API_WINE;
 
 // installing : wine_multi_server();
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ServerWine\VANILLA_WINE;
+new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINE;
 ```
 ```PHP
 # FLAG [ CRUD ] : (  Optional ) 

@@ -1,6 +1,6 @@
 <?php 
 
-namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ServerWine;
+namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine;
     
 /**
  * @copyright (c) 2021 PHPWine\VanillaFlavour - PHPCRUD (Plugin) v1.3.0.0 Cooked by nielsoffice 
@@ -42,7 +42,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\ServerWine;
  */ 
 
  
-class VANILLA_API_WINE Extends \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Server_wine\Tags
+class VANILLA_API_WINE Extends \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\Tags
 {
 
     public function __construct() {
