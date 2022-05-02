@@ -410,7 +410,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
      {
 
       $api_wine_multi_server_request = SELF::API_MAKES_WINE; 
-      $wine_api_request =  $validate_request_api_vanilla_wine($method[SELF::API_MAKES_WINE]);
+      $wine_api_request = $validate_request_api_vanilla_wine($method[SELF::API_MAKES_WINE]);
 
      } 
      
