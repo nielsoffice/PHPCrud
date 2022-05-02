@@ -655,13 +655,13 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
                   /**
                   * @param set process data display through foreach loop and exlpode using wine_extract() method !
                   **/ 
-                  return $this->debug_true_process( 
+                 return $this->debug_true_process( 
                   
-                  $this->server_wine_multi, // fresh multi db object 
-                  $this->query_wine_multi_server, // imploded or extracted query from mixed !
+                 $this->server_wine_multi, // fresh multi db object 
+                 $this->query_wine_multi_server, // imploded or extracted query from mixed !
                   
-                  $method[SELF::MULTI_SERVER_CALLABLE], // execute callable function !
-                  $method[SELF::MULTI_SERVER_DEBUG],  //  set to TRUE to enable dubug query 
+                 $method[SELF::MULTI_SERVER_CALLABLE], // execute callable function !
+                 $method[SELF::MULTI_SERVER_DEBUG],  //  set to TRUE to enable dubug query 
                   
                  'fetch' );  //  end of do process fetch !
              }
@@ -709,13 +709,13 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
                /**
                 * @param set process data display through foreach loop and exlpode using wine_extract() method !
                **/
-               return $this->debug_true_process( 
+              return $this->debug_true_process( 
                
-                 $this->server_wine_multi, // fresh multi db object 
-                 $this->query_wine_multi_server, // imploded or extracted query from mixed !
+              $this->server_wine_multi, // fresh multi db object 
+              $this->query_wine_multi_server, // imploded or extracted query from mixed !
                  
-                 $method[SELF::MULTI_SERVER_PUT], // execute callable function !
-                 $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
+              $method[SELF::MULTI_SERVER_PUT], // execute callable function !
+              $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
                
               'make_update_delete' );  //  end of do process update !
            }
@@ -765,11 +765,11 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
                 **/
                 return $this->debug_true_process( 
                 
-                  $this->server_wine_multi, // fresh multi db object
-                  $this->query_wine_multi_server, // imploded or extracted query from mixed !
+                $this->server_wine_multi, // fresh multi db object
+                $this->query_wine_multi_server, // imploded or extracted query from mixed !
                   
-                  $method[SELF::MULTI_SERVER_DEL], // execute callable function !
-                  $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
+                $method[SELF::MULTI_SERVER_DEL], // execute callable function !
+                $method[SELF::MULTI_SERVER_DEBUG], //  set to TRUE to enable dubug query 
                 
                'make_update_delete' ); //  end of do process delete !
             }
