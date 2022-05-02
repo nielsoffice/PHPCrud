@@ -44,8 +44,13 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine;
 
     static Protected array $file_name = [
         
-        'VANILLA_API_WINESERVER'  =>  'Api_wine_multi_server.php',
-        'VANILLA_WINESERVER'  =>  'Wine_multi_server.php'
+        'VANILLA_API_WINE'    =>  'Vanilla_api_wine_multi_server.php',
+        'VANILLA_WINE'        =>  'Vanilla_wine_multi_server.php',
+        'VANILLA_WINECREATE'  =>  'Vanilla_wine_creates.php',  
+        'VANILLA_WINEFETCH'   =>  'Vanilla_wine_fetch.php',   
+        'VANILLA_WINEUPDATE'  =>  'Vanilla_wine_update.php', 
+        'VANILLA_WINEDELETE'  =>  'Vanilla_wine_delete.php', 
+        'VANILLA_WINEEXTRACT' =>  'Vanilla_wine_extract.php',
 
     ];
 
