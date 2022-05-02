@@ -888,7 +888,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 03.02.2022
    **/
-  private function do_make( $MySQLi, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false) : bool|string
+  private function do_make( object $MySQLi, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false) : bool|string
   {
 
       # If condition gets [ TRUE ] set that custom query as the main query return only string type
@@ -941,7 +941,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 03.02.2022
    **/
-  private function do_fetch( $MySQLi, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false) : array
+  private function do_fetch( object $MySQLi, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false) : array
   {
     
    # If condition gets [ TRUE ] set that custom query as the main query return only string type
@@ -981,7 +981,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 03.02.2022
    **/
-  private function do_update( $MySQLi, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string
+  private function do_update( object $MySQLi, ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ) : bool|string
   {
 
     # Check if the array has ?[ condition ] and if true unset it and return appropriate
@@ -1086,7 +1086,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9 ++
    * @since 03.02.2022
    **/
-  private function do_delete( $MySQLi, $col_name, $query , $callback , $debug )
+  private function do_delete( object $MySQLi, string $col_name = null, array $query = null , mixed $callback = null , bool $debug = false ) : bool|string
   {
 
    # Initial Prepare empty SQL Query base on dev-mode cases
@@ -1209,7 +1209,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/
-   private function debug_true_process( $MySQLi, string $wine_query = null , $callback = null , bool $debug , string $action_type = 'default') : mixed 
+   private function debug_true_process( object $MySQLi, string $wine_query = null , $callback = null , bool $debug , string $action_type = 'default') : mixed 
    {
           # Set [ TRUE ] return debug to access custom query
           if( $debug == true ) :
@@ -1241,7 +1241,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
            * @param return if the process would be a CRU [ CREATE ] [ UDPATE ] [ DELETE ]
           **/       
           case 'make_update_delete':
-           return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . true );
+           return (bool)(string)(CRUDWine::wine_request_call_back( $MySQLi, $wine_query , $callback ) . $this->callback );
            break; 
 
           /**
