@@ -12,7 +12,7 @@ use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
 
      return method_exists((new Vanilla), 'api_wine_multi_server' ) ? 
    
-      (new Vanilla)->api_wine_multi_server($multi_server,$method, $callback)  : false;
+      (new Vanilla)->api_wine_multi_server($multi_server, $method, $callback)  : false;
    
     }
  
