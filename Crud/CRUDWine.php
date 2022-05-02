@@ -82,7 +82,7 @@ class CRUDWine extends  DBWine {
    * @since 1.0.0.0 supprt PHPWine v1.2.0.9
    * @since 02.28.2022
    **/   
-  protected function execute(array $query, string $data_type = "", array $data_values = [] ) : void    
+  protected function execute(array $query = [], string $data_type = "", array $data_values = [] ) : void    
   {   
       # CHECK IF HAS QUERY SET 
       $stmt = $this->db_wine->prepare($query);
@@ -231,7 +231,7 @@ class CRUDWine extends  DBWine {
    * @since v1.2.0.9
    * @since 02.28.2022
    **/
-  protected function wine_crud_error_handler( mixed $debug ) {
+  protected function wine_crud_error_handler( mixed $debug ) : void {
  
       print "<pre>";
       /**
