@@ -35,13 +35,13 @@ PHPCrud is a CRUD System designed to extend PHPWine functionality crud features.
 use \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Vanilla;
 
 // Installing function Vanilla since v1.3
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_API_WINE;
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINE;
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINECREATE;
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEFETCH;
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEUPDATE;
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEDELETE;
-new PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEEXTRACT;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_API_WINE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINECREATE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEFETCH;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEUPDATE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEDELETE;
+new \PHPWineVanillaFlavour\Plugins\PHPCrud\Crud\Wine\VANILLA_WINEEXTRACT;
 ```
 ```PHP
 # FLAG [ CRUD ] : (  Optional ) 
