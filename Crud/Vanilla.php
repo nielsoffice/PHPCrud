@@ -503,10 +503,25 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         * @since 02.28.2022
         **/
         default:
-         $this->wine_crud_error_handler('Require a valid Argument #FLAG : [ Vanilla::MAKE ] | [ Vanilla::FETCH ] | [ Vanilla::PUT ] | [ Vanilla::DELETE ]'
+         $this->wine_crud_error_handler('Require a valid Argument #FLAG : [ api_wine_makes ] | [ api_wine_fetch ] | [ api_wine_put ] | [ api_wine_delete ]'
          . '<br />' 
-         . '<br/>$useWine  = NEW Vanilla( Vanill::MAKE , ?string $db_table = null, array $query = [], mixed $callback = null, bool $debug = false ); '
-         );
+         . '<br/>  api_wine_multi_server( new mysqli("localhost","root","","multiserver"), [ "api_wine_makes" => function() {
+      
+          return [
+      
+            "debug" => false,
+            "query" => ["mixed" => [ "SQL goes here" ] ] 
+            
+          ];
+      
+          }], function() { ...  
+
+              // callback function goes here 
+              
+          }); "
+
+          
+          ');
    
         break;
    
