@@ -128,7 +128,7 @@ class CRUDWine extends  DBWine {
       '
 
       );
-      exit();
+      $this->wine_vanilla_debbug_errors();
     }
   }  
 
@@ -162,7 +162,7 @@ class CRUDWine extends  DBWine {
    
     # Prepare exit !
     return false;
-    exit();
+    $this->wine_vanilla_debbug_errors();
 
     }
 
@@ -222,7 +222,7 @@ class CRUDWine extends  DBWine {
 
      # Prepare exit !
      return false;
-     exit();
+     $this->wine_vanilla_debbug_errors();
    
     }
 
@@ -241,6 +241,30 @@ class CRUDWine extends  DBWine {
       print "</pre>";
 
   }
+
+  /**
+     *
+     * @method protected function noHTML
+     * @ @protected Method Defined HTML FOUNDATION _getBREAK
+     *
+     **/
+    protected function wine_vanilla_debbug_errors()
+    {
+
+      # SET_RETURN_protected_PROPERTY_GET_VALUE_ARRAY_ZERO
+        /**
+          *
+          * @var $hBreak
+          * @var protected property array()
+          * @method ""
+          *
+          **/
+       if (    defined('PHPCRUD_DEBUG_ERRORS') == true 
+            && PHPCRUD_DEBUG_ERRORS !== false ) : return '' ; 
+             else                               : return exit();
+      endif;
+        
+    }
 
 }
 

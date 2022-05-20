@@ -593,7 +593,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
 
                   $this->wine_crud_error_handler( (array) $method[SELF::MULTI_SERVER_VALUES]  );
                   $this->wine_crud_error_handler( (string) $this->query_wine_multi_server  );
-                  exit();
+                  $this->wine_vanilla_debbug_errors();
 
                 }
         
@@ -866,7 +866,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
 
           $this->wine_crud_error_handler( (array) $values );
           $this->wine_crud_error_handler( $this->wine_insert  );
-          exit();
+          $this->wine_vanilla_debbug_errors();
         }
 
         $stmt = $this->db_wine->prepare( $this->wine_insert );
@@ -1036,7 +1036,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
           print "<hr />";
           print_r( " OR use : [ 'mixed' => [ ' YOUR_SQL_QUERY ' ] ] " );
           print "</pre>";
-        die();   
+          $this->wine_vanilla_debbug_errors();   
 
       endif; 
         
@@ -1136,7 +1136,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
         print "<hr />";
         print_r( " OR use : [ 'mixed' => [ ' YOUR_SQL_QUERY ' ] ] " );
         print "</pre>";
-      die();   
+        $this->wine_vanilla_debbug_errors();   
 
     endif; 
       
@@ -1227,7 +1227,7 @@ namespace PHPWineVanillaFlavour\Plugins\PHPCrud\Crud;
              **/
             var_dump( $wine_query );
             print "</pre>";
-            die();
+            $this->wine_vanilla_debbug_errors();
           
           else :
               
